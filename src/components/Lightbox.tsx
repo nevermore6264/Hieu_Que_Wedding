@@ -44,7 +44,7 @@ export function Lightbox({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-night/95 p-4 text-white"
+      className="lightbox-backdrop fixed inset-0 z-[80] flex items-center justify-center bg-night/95 p-4 text-white"
       role="dialog"
       aria-modal="true"
       aria-label={photo.alt}
@@ -88,7 +88,7 @@ export function Lightbox({
       >
         ›
       </button>
-      <figure className="max-h-[86vh] max-w-6xl" onClick={(event) => event.stopPropagation()}>
+      <figure key={photo.src} className="lightbox-frame max-h-[86vh] max-w-6xl" onClick={(event) => event.stopPropagation()}>
         <Image
           src={photo.src}
           alt={photo.alt}

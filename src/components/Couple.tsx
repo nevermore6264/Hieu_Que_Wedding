@@ -28,7 +28,7 @@ export function Couple() {
   return (
     <section id="doi-uyen-uong" className="px-5 py-24 md:py-32">
       <div className="mx-auto grid max-w-6xl items-center gap-14 md:grid-cols-2 md:gap-20">
-        <Reveal>
+        <Reveal variant="left">
           <figure className="mx-auto max-w-md bg-paper p-3 shadow-[0_28px_70px_-40px_rgba(40,24,8,0.6)] md:p-4">
             <Image
               src={couplePhoto.src}
@@ -38,19 +38,16 @@ export function Couple() {
               sizes="(max-width: 768px) 90vw, 420px"
               className="h-auto w-full"
             />
-            <figcaption className="flex items-center justify-between px-1 pt-3 text-[10px] uppercase tracking-[0.28em] text-muted">
-              <span>
-                {wedding.groom.shortName} & {wedding.bride.shortName}
-              </span>
-              <span>{wedding.photo.title}</span>
+            <figcaption className="px-1 pt-3 text-center text-[10px] uppercase tracking-[0.28em] text-muted">
+              {wedding.groom.shortName} & {wedding.bride.shortName}
             </figcaption>
           </figure>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal variant="right" delay={140}>
           <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Đôi uyên ương</p>
           <p className="mt-4 max-w-md font-serif text-3xl leading-snug italic md:text-4xl">
-            Một chuyện tình gọi là {wedding.photo.title}.
+            Một chuyện tình giản dị.
           </p>
           <div className="mt-10">
             <Person

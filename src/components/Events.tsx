@@ -12,33 +12,33 @@ export function Events() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Lịch trình</p>
             <h2 className="mt-3 font-serif text-[clamp(2.3rem,5vw,3.8rem)] leading-tight font-medium">
-              Ngày trọng đại
+              Dạm ngõ và lễ cưới
             </h2>
             <p className="mt-4 text-[15px] leading-7 text-muted">
-              {date
-                ? date
-                : "Giờ lành, địa điểm nhà gái, nhà trai và tiệc cưới sẽ được điền vào đây khi hai gia đình chốt lịch."}
+              Giờ và địa điểm từng buổi sẽ được cập nhật.
             </p>
-            {wedding.lunarLabel.trim() ? (
-              <p className="mt-2 text-sm text-muted italic">{wedding.lunarLabel.trim()}</p>
-            ) : null}
             {wedding.weddingPlace.trim() ? <p className="mt-2">{wedding.weddingPlace.trim()}</p> : null}
           </div>
         </Reveal>
 
         {wedding.dateISO.trim() ? (
           <div className="mx-auto mt-12 max-w-xl">
+            <p className="mb-4 text-center text-[11px] uppercase tracking-[0.28em] text-gold">Đến lễ cưới</p>
             <Countdown />
           </div>
         ) : null}
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div
+          className={`mx-auto mt-14 grid max-w-4xl gap-5 ${
+            wedding.events.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"
+          }`}
+        >
           {wedding.events.map((event, index) => {
             const filled = Boolean(event.time || event.venue || event.address);
             const map = mapsHref(event.address || event.venue);
             return (
               <Reveal key={event.id} delay={index * 90}>
-                <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)]">
+                <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)] transition duration-500 hover:-translate-y-1">
                   <div className="flex items-start justify-between gap-4">
                     <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{event.eyebrow}</p>
                     <span className="font-serif text-4xl leading-none text-gold/25">0{index + 1}</span>
@@ -48,8 +48,12 @@ export function Events() {
                     {filled ? (
                       <>
                         {event.time ? <p className="text-ink">{event.time}</p> : null}
+                        {event.note ? <p className="italic">{event.note}</p> : null}
                         {event.venue ? <p>{event.venue}</p> : null}
                         {event.address ? <p>{event.address}</p> : null}
+                        {!event.venue && !event.address ? (
+                          <p className="italic">Địa điểm sẽ được cập nhật</p>
+                        ) : null}
                       </>
                     ) : (
                       <p className="italic">Thông tin sẽ được cập nhật</p>

@@ -10,7 +10,7 @@ export function Invitation() {
 
   return (
     <section id="loi-moi" className="relative z-10 -mt-20 px-5 pb-8 md:-mt-24">
-      <Reveal>
+      <Reveal variant="zoom">
         <div className="mx-auto max-w-3xl border border-gold/35 bg-paper p-2 shadow-[0_30px_80px_-40px_rgba(50,30,10,0.55)]">
           <div className="border border-gold/25 px-6 py-14 text-center sm:px-12 md:py-16">
             <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Lời mời</p>
@@ -19,7 +19,7 @@ export function Invitation() {
             </h2>
             <Ornament className="mt-6" />
             <p className="mx-auto mt-8 max-w-md text-[15px] leading-8 text-ink/85">
-              Hai gia đình chúng tôi xin trân trọng kính mời quý khách đến dự buổi lễ thành hôn của
+              Hai gia đình chúng tôi xin trân trọng kính mời quý khách đến dự lễ cưới của
             </p>
             <p className="mt-7 font-serif text-3xl md:text-4xl">{wedding.groom.name}</p>
             {wedding.groom.parents ? (
@@ -33,7 +33,18 @@ export function Invitation() {
             <p className="mx-auto mt-8 max-w-md text-[15px] leading-8">
               Sự hiện diện của quý khách là niềm vui, và là lời chúc phúc quý giá nhất mà chúng tôi mong được đón nhận.
             </p>
-            {hasPlan ? (
+            {wedding.events.length ? (
+              <div className="mt-8 space-y-5 text-[15px] leading-7">
+                {wedding.events.map((event) => (
+                  <div key={event.id}>
+                    <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{event.title}</p>
+                    <p className="mt-1 font-medium">{event.time}</p>
+                    {event.note ? <p className="text-muted italic">{event.note}</p> : null}
+                  </div>
+                ))}
+                {place ? <p>{place}</p> : null}
+              </div>
+            ) : hasPlan ? (
               <div className="mt-8 space-y-1 text-[15px] leading-7">
                 {date ? <p className="font-medium">{date}</p> : null}
                 {lunar ? <p className="text-muted italic">{lunar}</p> : null}

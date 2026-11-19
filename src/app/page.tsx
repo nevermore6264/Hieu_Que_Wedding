@@ -1,4 +1,5 @@
 import { Couple } from "@/components/Couple";
+import { SiteMotion } from "@/components/SiteMotion";
 import { Events } from "@/components/Events";
 import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
@@ -6,6 +7,7 @@ import { Gift } from "@/components/Gift";
 import { Hero } from "@/components/Hero";
 import { Invitation } from "@/components/Invitation";
 import { Moments } from "@/components/Moments";
+import { MusicToggle } from "@/components/MusicToggle";
 import { Nav } from "@/components/Nav";
 import { Photobook } from "@/components/Photobook";
 import { QuoteBand } from "@/components/QuoteBand";
@@ -20,7 +22,9 @@ export default function HomePage() {
       {jsonLd ? (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       ) : null}
+      <SiteMotion />
       <Nav />
+      <MusicToggle />
       <main>
         <Hero />
         <Invitation />

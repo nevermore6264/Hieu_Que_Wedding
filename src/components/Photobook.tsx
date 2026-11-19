@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
-import { albumSpreads, wedding } from "@/lib/wedding";
+import { albumSpreads } from "@/lib/wedding";
 import { Lightbox } from "@/components/Lightbox";
+import { Reveal } from "@/components/Reveal";
 
 export function Photobook() {
   const scroller = useRef<HTMLDivElement>(null);
@@ -17,21 +18,22 @@ export function Photobook() {
   };
 
   return (
-    <section className="bg-night py-20 text-ivory md:py-28" aria-labelledby="photobook-title">
+    <section id="trang-album" className="bg-night py-20 text-ivory md:py-28" aria-labelledby="photobook-title">
+      <Reveal>
       <div className="mx-auto flex max-w-6xl items-end justify-between gap-6 px-5">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.38em] text-gold-2">Photobook</p>
+          <p className="text-[11px] uppercase tracking-[0.38em] text-gold-2">Album in</p>
           <h2 id="photobook-title" className="mt-3 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-tight font-medium">
             Lật từng trang
           </h2>
           <p className="mt-3 max-w-md text-sm leading-7 text-white/65">
-            Các trang in của album {wedding.photo.title}. Vuốt ngang, hoặc dùng mũi tên.
+            Vuốt ngang để xem từng trang, hoặc dùng mũi tên.
           </p>
         </div>
         <div className="hidden gap-2 sm:flex">
           <button
             type="button"
-            className="h-11 w-11 border border-white/30 text-xl"
+            className="h-11 w-11 border border-white/30 text-xl transition duration-300 hover:bg-white/10"
             aria-label="Trang trước"
             onClick={() => slide(-1)}
           >
@@ -39,7 +41,7 @@ export function Photobook() {
           </button>
           <button
             type="button"
-            className="h-11 w-11 border border-white/30 text-xl"
+            className="h-11 w-11 border border-white/30 text-xl transition duration-300 hover:bg-white/10"
             aria-label="Trang sau"
             onClick={() => slide(1)}
           >
@@ -47,6 +49,7 @@ export function Photobook() {
           </button>
         </div>
       </div>
+      </Reveal>
 
       <div
         ref={scroller}
@@ -57,7 +60,7 @@ export function Photobook() {
             key={photo.src}
             type="button"
             aria-label={photo.alt}
-            className="w-[86vw] shrink-0 snap-center cursor-pointer border-0 bg-transparent p-0 text-left sm:w-[640px]"
+            className="album-card w-[86vw] shrink-0 snap-center cursor-pointer border-0 bg-transparent p-0 text-left sm:w-[640px]"
             onClick={() => setIndex(photoIndex)}
           >
             <Image

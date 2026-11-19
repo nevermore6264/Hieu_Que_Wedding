@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { moments, wedding } from "@/lib/wedding";
+import { moments } from "@/lib/wedding";
 import { Reveal } from "@/components/Reveal";
 
 export function Moments() {
@@ -13,8 +13,7 @@ export function Moments() {
               Những điều giản dị
             </h2>
             <p className="mt-4 text-[15px] leading-7 text-muted">
-              Ba lát cắt trong bộ ảnh {wedding.photo.title}, thực hiện bởi {wedding.photo.studio} tại{" "}
-              {wedding.photo.place} năm {wedding.photo.year}.
+              Ba khoảnh khắc chúng tôi muốn giữ lại.
             </p>
           </div>
         </Reveal>
@@ -27,7 +26,7 @@ export function Moments() {
                 key={moment.index}
                 className="grid items-center gap-8 md:grid-cols-2 md:gap-16"
               >
-                <Reveal className={reversed ? "md:order-2" : ""}>
+                <Reveal variant="wipe" className={reversed ? "md:order-2" : ""}>
                   <Image
                     src={moment.photo.src}
                     alt={moment.photo.alt}
@@ -37,7 +36,7 @@ export function Moments() {
                     className="h-auto w-full"
                   />
                 </Reveal>
-                <Reveal delay={100} className={reversed ? "md:order-1" : ""}>
+                <Reveal variant={reversed ? "left" : "right"} delay={140} className={reversed ? "md:order-1" : ""}>
                   <p className="font-serif text-5xl text-gold/35">{moment.index}</p>
                   <h3 className="mt-2 font-serif text-4xl font-medium">{moment.title}</h3>
                   <p className="mt-4 max-w-md text-[15px] leading-8 text-muted">{moment.text}</p>

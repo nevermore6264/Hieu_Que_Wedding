@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 const title = `${wedding.groom.name} & ${wedding.bride.name}`;
-const description = `Thiệp cưới của ${wedding.groom.name} và ${wedding.bride.name}. Trân trọng kính mời quý khách đến chung vui ngày trọng đại.`;
+const description = `Thiệp mời lễ cưới của ${wedding.groom.name} và ${wedding.bride.name}. Lễ dạm ngõ ngày 24 tháng 11 năm 2026, lễ cưới ngày 26 tháng 12 năm 2026.`;
 
 export const metadata: Metadata = {
   title,

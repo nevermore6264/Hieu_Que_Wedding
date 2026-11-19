@@ -34,32 +34,125 @@ body {
   outline-offset: 3px;
 }
 
-.reveal.inview {
-  animation: rise 0.9s ease both;
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #8f7044, #c6aa74);
+  pointer-events: none;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.scene-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent 0%, rgba(198, 170, 116, 0.22) 46%, transparent 72%);
+  animation: scene-pass 0.9s ease forwards;
 }
 
-@keyframes drift {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.07);
-  }
+.hero-in {
+  animation: rise 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .hero-drift {
-  animation: drift 20s ease-out forwards;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  z-index: 10;
+  display: flex;
+  translate: -50% 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.scroll-cue span {
+  display: block;
+  width: 1px;
+  height: 46px;
+  transform-origin: top;
+  background: linear-gradient(to bottom, transparent, #c6aa74);
+  animation: cue 1.7s ease-in-out infinite;
+}
+
+.reveal.inview {
+  animation-duration: 1.05s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.reveal-up.inview {
+  animation-name: rise;
+}
+
+.reveal-left.inview {
+  animation-name: from-left;
+}
+
+.reveal-right.inview {
+  animation-name: from-right;
+}
+
+.reveal-zoom.inview {
+  animation-name: unfold;
+}
+
+.reveal-wipe.inview {
+  animation-name: wipe-in;
+}
+
+.reveal .ornament-line {
+  transform: scaleX(0);
+}
+
+.reveal.inview .ornament-line {
+  animation: draw-x 0.9s ease 0.28s both;
+}
+
+.count-pop {
+  animation: count-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.music-live {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+.menu-panel {
+  animation: fade-in 0.35s ease both;
+}
+
+.menu-link {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lightbox-backdrop {
+  animation: fade-in 0.35s ease both;
+}
+
+.lightbox-frame {
+  animation: unfold 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.album-card {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.album-card:hover {
+  transform: translateY(-8px);
 }
 
 .masonry {
@@ -98,16 +191,180 @@ body {
   border-radius: 999px;
 }
 
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-46px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes from-right {
+  from {
+    opacity: 0;
+    transform: translateX(46px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes unfold {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    opacity: 0;
+    clip-path: inset(14% 0 14% 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scene-pass {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+@keyframes draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes count-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(143, 112, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(143, 112, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(143, 112, 68, 0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+  }
+
+  .reveal-up {
+    transform: translateY(36px);
+  }
+
+  .reveal-left {
+    transform: translateX(-46px);
+  }
+
+  .reveal-right {
+    transform: translateX(46px);
+  }
+
+  .reveal-zoom {
+    transform: translateY(24px) scale(0.96);
+  }
+
+  .reveal-wipe {
+    clip-path: inset(14% 0 14% 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .reveal.inview {
-    animation: none;
-  }
-
-  .hero-drift {
-    animation: none;
+  .reveal,
+  .reveal.inview,
+  .hero-in,
+  .hero-drift,
+  .scroll-cue span,
+  .scene-wipe,
+  .count-pop,
+  .music-live,
+  .menu-panel,
+  .menu-link,
+  .lightbox-backdrop,
+  .lightbox-frame,
+  .album-card,
+  .ornament-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 }

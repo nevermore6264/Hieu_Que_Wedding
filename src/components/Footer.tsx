@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Reveal } from "@/components/Reveal";
 import { wedding } from "@/lib/wedding";
 
 export function Footer() {
@@ -13,6 +14,7 @@ export function Footer() {
 
   return (
     <footer className="bg-night px-5 py-16 text-center text-ivory">
+      <Reveal variant="zoom">
       <p className="font-serif text-4xl">
         H <span className="text-gold-2 italic">&</span> Q
       </p>
@@ -21,9 +23,6 @@ export function Footer() {
         <span className="mx-2 text-gold-2">·</span>
         {wedding.bride.name}
       </p>
-      <p className="mt-6 text-[11px] uppercase tracking-[0.28em] text-white/45">
-        {wedding.photo.title} · {wedding.photo.studio} · {wedding.photo.place} · {wedding.photo.year}
-      </p>
       <button
         type="button"
         onClick={copyLink}
@@ -31,7 +30,11 @@ export function Footer() {
       >
         {copied ? "Đã sao chép liên kết thiệp" : "Sao chép liên kết thiệp"}
       </button>
-      <p className="mt-12 text-xs text-white/35">Với tất cả yêu thương</p>
+      <p className="mt-10 text-xs leading-6 text-white/40">
+        Nhạc nền: {wedding.music.title} — {wedding.music.credit}. CC BY 4.0.
+      </p>
+      <p className="mt-6 text-xs text-white/35">Với tất cả yêu thương</p>
+      </Reveal>
     </footer>
   );
 }

@@ -2,14 +2,18 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
+type Variant = "up" | "left" | "right" | "zoom" | "wipe";
+
 export function Reveal({
   children,
   className = "",
   delay = 0,
+  variant = "up",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
+  variant?: Variant;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -24,7 +28,7 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.14, rootMargin: "0px 0px -6% 0px" },
     );
 
     observer.observe(node);
@@ -32,7 +36,11 @@ export function Reveal({
   }, []);
 
   return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div
+      ref={ref}
+      className={`reveal reveal-${variant} ${className}`}
+      style={delay ? { animationDelay: `${delay}ms` } : undefined}
+    >
       {children}
     </div>
   );

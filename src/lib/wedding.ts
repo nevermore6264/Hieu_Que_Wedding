@@ -13,6 +13,7 @@ export type Ceremony = {
   time: string;
   venue: string;
   address: string;
+  note: string;
 };
 
 export type TimelineItem = {
@@ -51,20 +52,12 @@ export const wedding = {
     parents: "",
     note: "Một nụ cười, một bó hoa, và lời hẹn ở lại.",
   },
-  /** Ví dụ: "2026-12-20T10:00:00+07:00". Để trống nếu chưa chốt ngày. */
-  dateISO: "",
-  /** Ví dụ: "Chủ Nhật, 20 tháng 12, 2026". Để trống để tự định dạng từ dateISO. */
-  dateLabel: "",
-  /** Ví dụ: "Tức ngày 02 tháng 11 năm Bính Ngọ". */
-  lunarLabel: "",
+  /** Mốc đếm ngược: đầu ngày lễ cưới, giờ Việt Nam. */
+  dateISO: "2026-12-26T00:00:00+07:00",
+  dateLabel: "Thứ Bảy, 26 tháng 12, 2026",
+  lunarLabel: "Nhằm ngày 18 tháng 11 năm Bính Ngọ",
   /** Nơi tổ chức lễ, ví dụ: "Đà Nẵng". Bộ ảnh chụp tại Đà Nẵng, không suy ra địa điểm cưới. */
   weddingPlace: "",
-  photo: {
-    title: "Simple Thing",
-    studio: "Kimchi Studio",
-    place: "Đà Nẵng",
-    year: "2024",
-  },
   /** Khi đã có tên miền, ví dụ "https://hieuque.example.com". */
   siteUrl: "",
   contact: {
@@ -78,30 +71,29 @@ export const wedding = {
     owner: "",
     note: "Niềm vui của chúng tôi là sự hiện diện của quý khách.",
   },
+  music: {
+    src: "/music/wedding.mp3",
+    title: "Gymnopédie No. 1",
+    credit: "Erik Satie, trình bày Kevin MacLeod",
+  },
   events: [
     {
-      id: "vu-quy",
-      eyebrow: "Nhà gái",
-      title: "Lễ vu quy",
-      time: "",
+      id: "dam-ngo",
+      eyebrow: "Mở đầu",
+      title: "Lễ dạm ngõ",
+      time: "Thứ Ba, 24 tháng 11, 2026",
       venue: "",
       address: "",
+      note: "Tức ngày 16 tháng 10 năm Bính Ngọ",
     },
     {
-      id: "thanh-hon",
-      eyebrow: "Nhà trai",
-      title: "Lễ thành hôn",
-      time: "",
+      id: "le-cuoi",
+      eyebrow: "Lễ chính",
+      title: "Lễ cưới",
+      time: "Thứ Bảy, 26 tháng 12, 2026",
       venue: "",
       address: "",
-    },
-    {
-      id: "tiec",
-      eyebrow: "Chung vui",
-      title: "Tiệc cưới",
-      time: "",
-      venue: "",
-      address: "",
+      note: "Tức ngày 18 tháng 11 năm Bính Ngọ",
     },
   ] satisfies Ceremony[],
   /**
@@ -135,9 +127,9 @@ export const quotePhoto = shot(
 export const moments = [
   {
     index: "01",
-    title: "Studio trắng",
+    title: "Nền trắng",
     text: "Giữa phông nền trắng và một bó hoa nhỏ, hai người đứng cạnh nhau. Đơn giản, và đủ để nhớ.",
-    photo: shot("13x184", 1200, 1800, "Quế trong váy ren, Hiếu mặc vest đen giữa studio trắng"),
+    photo: shot("13x184", 1200, 1800, "Quế trong váy ren, Hiếu mặc vest đen trên nền trắng"),
   },
   {
     index: "02",
@@ -156,7 +148,7 @@ export const moments = [
 export const gallery: Photo[] = [
   shot("le-dsc_6684", 1140, 1800, "Dạo bước bên hồ lúc hoàng hôn"),
   shot("13x185", 1800, 1200, "Bế bổng giữa trời chiều"),
-  shot("13x183", 1200, 1800, "Khoảnh khắc dịu dàng trong studio"),
+  shot("13x183", 1200, 1800, "Khoảnh khắc dịu dàng trên nền sáng"),
   shot("le-qdd04660", 1800, 1200, "Bên chiếc xe cổ"),
   shot("le-qdd05362", 1200, 1800, "Nụ cười trong váy cưới"),
   shot("13x182", 1800, 1200, "Cười giữa khu vườn"),
@@ -169,7 +161,7 @@ export const gallery: Photo[] = [
   shot("le-dsc_6985", 1200, 1800, "Ánh mắt lúc mặt trời lặn"),
   shot("13x184", 1200, 1800, "Váy ren và vest đen"),
   shot("le-qdd04619", 1200, 1800, "Chụp cùng chiếc xe cổ"),
-  shot("le-qdd05022", 1200, 1800, "Vòng tay trong studio"),
+  shot("le-qdd05022", 1200, 1800, "Vòng tay trên nền sáng"),
   shot("le-dsc_6634", 1140, 1800, "Cầm tay đi trên bãi cỏ"),
   shot("le-qdd04686", 1200, 1800, "Ngồi trên xe với bó hoa loa kèn"),
   shot("60x902", 1140, 1800, "Chân dung cưới vest trắng và váy đuôi cá"),
@@ -184,7 +176,7 @@ export const albumSpreads: Photo[] = [
   shot("25x35_08", 1800, 1259, "Trang album trên ban công"),
   shot("25x35_10", 1800, 1259, "Trang album hoàng hôn"),
   shot("25x35_06", 1800, 1259, "Trang album chân dung"),
-  shot("25x35_04", 1800, 1259, "Trang album bộ ảnh studio"),
+  shot("25x35_04", 1800, 1259, "Trang album trên nền sáng"),
   shot("25x35_05", 1800, 1259, "Trang album những khoảnh khắc"),
 ];
 
@@ -228,11 +220,12 @@ export function weddingJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: `Lễ thành hôn của ${wedding.groom.name} và ${wedding.bride.name}`,
+    name: `Lễ cưới của ${wedding.groom.name} và ${wedding.bride.name}`,
     startDate: wedding.dateISO,
+    endDate: "2026-12-26",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    description: `Trân trọng kính mời đến lễ thành hôn của ${wedding.groom.name} và ${wedding.bride.name}.`,
+    description: `Trân trọng kính mời đến lễ dạm ngõ ngày 24 tháng 11 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
     ...(place
       ? {
           location: {

@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { Reveal } from "@/components/Reveal";
 import { wedding, zaloHref } from "@/lib/wedding";
 
 type Attendance = "yes" | "no" | "later";
@@ -60,10 +61,10 @@ export function Rsvp() {
   const summaryOf = (entry: Entry) => {
     const chosen = wedding.events
       .filter((event) => entry.events.includes(event.id))
-      .map((event) => event.title)
+      .map((event) => event.time || event.title)
       .join(", ");
     return [
-      `Xác nhận tham dự lễ cưới ${wedding.groom.shortName} & ${wedding.bride.shortName}`,
+      `Xác nhận tham dự ${wedding.groom.shortName} & ${wedding.bride.shortName}`,
       `Họ tên: ${entry.name}`,
       entry.phone ? `Điện thoại: ${entry.phone}` : "",
       `Tham dự: ${attendanceLabel[entry.attendance]}`,
@@ -118,7 +119,7 @@ export function Rsvp() {
   return (
     <section id="tham-du" className="px-5 py-24 md:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
-        <div>
+        <Reveal variant="left">
           <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Tham dự</p>
           <h2 className="mt-3 font-serif text-[clamp(2.3rem,5vw,3.8rem)] leading-tight font-medium">
             Cho chúng tôi biết quý khách sẽ đến
@@ -140,8 +141,9 @@ export function Rsvp() {
               ) : null}
             </div>
           )}
-        </div>
+        </Reveal>
 
+        <Reveal variant="right" delay={120}>
         <form onSubmit={onSubmit} className="border border-line bg-paper px-6 py-8 sm:px-8" noValidate>
           <label className="block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-name">
             Họ và tên
@@ -219,8 +221,8 @@ export function Rsvp() {
                     onChange={() => toggleEvent(item.id)}
                     className="accent-[#8f7044]"
                   />
-                  {item.title}
-                  <span className="text-muted">· {item.eyebrow}</span>
+                  {item.time || item.title}
+                  <span className="text-muted">· {item.title}</span>
                 </label>
               ))}
             </div>
@@ -264,6 +266,7 @@ export function Rsvp() {
             </div>
           ) : null}
         </form>
+        </Reveal>
       </div>
 
       {ready && entries.some((entry) => entry.message) ? (

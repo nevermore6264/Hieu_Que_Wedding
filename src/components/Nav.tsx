@@ -52,7 +52,7 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[11px] uppercase tracking-[0.22em] opacity-80 transition hover:opacity-100"
+              className="relative text-[11px] uppercase tracking-[0.22em] opacity-80 transition duration-300 after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-300 hover:opacity-100 hover:after:w-full"
             >
               {link.label}
             </a>
@@ -87,12 +87,13 @@ export function Nav() {
       </div>
 
       {open ? (
-        <nav className="flex min-h-[calc(100svh-4rem)] flex-col justify-center gap-6 px-8 pb-16 lg:hidden" aria-label="Menu">
-          {links.map((link) => (
+        <nav className="menu-panel flex min-h-[calc(100svh-4rem)] flex-col justify-center gap-6 px-8 pb-16 lg:hidden" aria-label="Menu">
+          {links.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className="font-serif text-4xl"
+              className="menu-link font-serif text-4xl"
+              style={{ animationDelay: `${index * 70}ms` }}
               onClick={() => setOpen(false)}
             >
               {link.label}

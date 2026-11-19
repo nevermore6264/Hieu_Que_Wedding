@@ -56,7 +56,7 @@ export function Countdown() {
     <div className="grid grid-cols-4 gap-2 sm:gap-4">
       {units.map(([label, value]) => (
         <div key={label} className="bg-paper px-2 py-4 text-center">
-          <p className="font-serif text-3xl tabular-nums md:text-4xl">
+          <p key={value} className="count-pop font-serif text-3xl tabular-nums md:text-4xl">
             {label === "Ngày" ? value : String(value).padStart(2, "0")}
           </p>
           <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-muted">{label}</p>
