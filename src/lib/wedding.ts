@@ -22,6 +22,24 @@ export type TimelineItem = {
   detail: string;
 };
 
+export type GiftSide = {
+  id: string;
+  title: string;
+  owner: string;
+  bank: string;
+  account: string;
+  /** Đường dẫn ảnh QR trong public, ví dụ "/qr/nha-trai.png". Để trống khi chưa có ảnh. */
+  qr: string;
+};
+
+export type Household = {
+  id: string;
+  title: string;
+  address: string;
+  /** Link Google Maps. Để trống khi chưa có. */
+  map: string;
+};
+
 function shot(file: string, width: number, height: number, alt: string): Photo {
   return {
     src: `/photos/${file}.webp`,
@@ -65,12 +83,41 @@ export const wedding = {
     bridePhone: "",
   },
   gift: {
-    enabled: false,
-    bank: "",
-    account: "",
-    owner: "",
-    note: "Niềm vui của chúng tôi là sự hiện diện của quý khách.",
+    enabled: true,
+    note: "Niềm vui của chúng tôi là sự hiện diện của quý khách. Nếu muốn gửi quà, quý khách có thể quét mã bên dưới.",
+    sides: [
+      {
+        id: "nha-trai",
+        title: "Nhà trai",
+        owner: "",
+        bank: "",
+        account: "",
+        qr: "",
+      },
+      {
+        id: "nha-gai",
+        title: "Nhà gái",
+        owner: "",
+        bank: "",
+        account: "",
+        qr: "",
+      },
+    ] satisfies GiftSide[],
   },
+  homes: [
+    {
+      id: "nha-trai",
+      title: "Nhà trai",
+      address: "Phường Duy Tân, tỉnh Ninh Bình",
+      map: "https://www.google.com/maps/search/?api=1&query=20.666764,106.020786",
+    },
+    {
+      id: "nha-gai",
+      title: "Nhà gái",
+      address: "Thôn Khe Đảng, xã Yên Sơn, tỉnh Tuyên Quang",
+      map: "https://www.google.com/maps/place/C%C3%B4ng+N%C3%B4ng+V%E1%BA%ADn+T%E1%BA%A3i+qu%E1%BA%BF+khe+%C4%90%E1%BA%A3ng/@21.8749533,105.1138581,17.68z/data=!4m6!3m5!1s0x3134ab0031115367:0xe701d111b7fd7291!8m2!3d21.874652!4d105.114103!16s%2Fg%2F11x_2y_m9f",
+    },
+  ] satisfies Household[],
   music: {
     src: "/music/wedding.mp3",
     title: "Vietnam Romance",
@@ -197,7 +244,9 @@ export function displayDate() {
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
-export function mapsHref(address: string) {
+export function mapsHref(address: string, map = "") {
+  const direct = map.trim();
+  if (direct) return direct;
   const query = address.trim();
   if (!query) return "";
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;

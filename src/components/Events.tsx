@@ -33,7 +33,7 @@ export function Events() {
         >
           {wedding.events.map((event, index) => {
             const filled = Boolean(event.time || event.venue || event.address);
-            const map = mapsHref(event.address || event.venue);
+            const map = mapsHref(event.address || event.venue, "");
             return (
               <Reveal key={event.id} delay={index * 90}>
                 <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)] transition duration-500 hover:-translate-y-1">
@@ -57,6 +57,34 @@ export function Events() {
                       <p className="italic">Thông tin sẽ được cập nhật</p>
                     )}
                   </div>
+                  {map ? (
+                    <a
+                      href={map}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-6 text-[11px] uppercase tracking-[0.2em] text-gold"
+                    >
+                      Xem bản đồ
+                    </a>
+                  ) : null}
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        <div className="mx-auto mt-5 grid max-w-4xl gap-5 md:grid-cols-2">
+          {wedding.homes.map((home, index) => {
+            const map = mapsHref(home.address, home.map);
+            return (
+              <Reveal key={home.id} delay={index * 90}>
+                <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)]">
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{home.title}</p>
+                  {home.address ? (
+                    <p className="mt-4 text-sm leading-7 text-ink">{home.address}</p>
+                  ) : (
+                    <p className="mt-4 text-sm leading-7 text-muted italic">Địa chỉ sẽ được cập nhật</p>
+                  )}
                   {map ? (
                     <a
                       href={map}

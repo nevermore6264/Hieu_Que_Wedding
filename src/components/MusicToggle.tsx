@@ -5,23 +5,39 @@ import { wedding } from "@/lib/wedding";
 
 export function MusicToggle() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const userPaused = useRef(false);
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    const onPause = () => setPlaying(false);
-    const onPlay = () => setPlaying(true);
-    const onOpen = () => {
+
+    const start = () => {
+      if (userPaused.current || !audio.paused) return;
       audio.play().catch(() => setPlaying(false));
     };
+    const onGesture = (event: Event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest(".music-orb")) return;
+      start();
+    };
+    const onPause = () => setPlaying(false);
+    const onPlay = () => setPlaying(true);
+
     audio.addEventListener("pause", onPause);
     audio.addEventListener("play", onPlay);
-    window.addEventListener("hieu-que-open", onOpen);
+    if (!audio.paused) setPlaying(true);
+    window.addEventListener("hieu-que-open", start);
+    window.addEventListener("pointerdown", onGesture);
+    window.addEventListener("keydown", onGesture);
+    start();
+
     return () => {
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("play", onPlay);
-      window.removeEventListener("hieu-que-open", onOpen);
+      window.removeEventListener("hieu-que-open", start);
+      window.removeEventListener("pointerdown", onGesture);
+      window.removeEventListener("keydown", onGesture);
     };
   }, []);
 
@@ -29,9 +45,11 @@ export function MusicToggle() {
     const audio = audioRef.current;
     if (!audio) return;
     if (!audio.paused) {
+      userPaused.current = true;
       audio.pause();
       return;
     }
+    userPaused.current = false;
     try {
       await audio.play();
     } catch {
@@ -41,7 +59,7 @@ export function MusicToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src={wedding.music.src} loop preload="none" />
+      <audio ref={audioRef} src={wedding.music.src} loop autoPlay preload="auto" />
       <button
         type="button"
         onClick={toggle}

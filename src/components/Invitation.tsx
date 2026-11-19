@@ -42,6 +42,14 @@ export function Invitation() {
                     {event.note ? <p className="text-muted italic">{event.note}</p> : null}
                   </div>
                 ))}
+                {wedding.homes
+                  .filter((home) => home.address.trim())
+                  .map((home) => (
+                    <div key={home.id}>
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{home.title}</p>
+                      <p className="mt-1">{home.address}</p>
+                    </div>
+                  ))}
                 {place ? <p>{place}</p> : null}
               </div>
             ) : hasPlan ? (
