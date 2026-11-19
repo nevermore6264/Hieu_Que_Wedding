@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ivory: #f3eee6;
+  --color-paper: #faf7f2;
+  --color-ink: #1c1712;
+  --color-muted: #74695e;
+  --color-gold: #8f7044;
+  --color-gold-2: #c6aa74;
+  --color-line: #e5d9c9;
+  --color-night: #14110e;
+  --font-sans: var(--font-be-vietnam), "Segoe UI", sans-serif;
+  --font-serif: var(--font-cormorant), "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: #e7d5b6;
+  color: #1c1712;
+}
+
+:focus-visible {
+  outline: 2px solid #8f7044;
+  outline-offset: 3px;
+}
+
+.reveal.inview {
+  animation: rise 0.9s ease both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07);
+  }
+}
+
+.hero-drift {
+  animation: drift 20s ease-out forwards;
+}
+
+.masonry {
+  columns: 1;
+  column-gap: 0.85rem;
+}
+
+.masonry > * {
+  break-inside: avoid;
+  margin-bottom: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .masonry {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1100px) {
+  .masonry {
+    columns: 3;
+  }
+}
+
+.album-scroll {
+  scrollbar-color: #8f7044 transparent;
+  scrollbar-width: thin;
+}
+
+.album-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.album-scroll::-webkit-scrollbar-thumb {
+  background: #8f7044;
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal.inview {
+    animation: none;
+  }
+
+  .hero-drift {
+    animation: none;
+  }
+}

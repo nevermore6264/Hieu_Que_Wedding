@@ -1,0 +1,246 @@
+export type Photo = {
+  src: string;
+  thumb: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
+export type Ceremony = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  time: string;
+  venue: string;
+  address: string;
+};
+
+export type TimelineItem = {
+  time: string;
+  title: string;
+  detail: string;
+};
+
+function shot(file: string, width: number, height: number, alt: string): Photo {
+  return {
+    src: `/photos/${file}.webp`,
+    thumb: `/photos/${file}-thumb.webp`,
+    width,
+    height,
+    alt,
+  };
+}
+
+/**
+ * Thông tin thiệp cưới.
+ * Ngày, giờ, địa điểm, tên bố mẹ, số điện thoại và tài khoản mừng cưới
+ * đang để trống — điền vào các chuỗi bên dưới khi đã chốt.
+ */
+export const wedding = {
+  groom: {
+    name: "Trần Trung Hiếu",
+    shortName: "Hiếu",
+    role: "Chú rể",
+    parents: "",
+    note: "Chọn một đời bình yên, và chọn người để đi cùng.",
+  },
+  bride: {
+    name: "Tướng Thị Quế",
+    shortName: "Quế",
+    role: "Cô dâu",
+    parents: "",
+    note: "Một nụ cười, một bó hoa, và lời hẹn ở lại.",
+  },
+  /** Ví dụ: "2026-12-20T10:00:00+07:00". Để trống nếu chưa chốt ngày. */
+  dateISO: "",
+  /** Ví dụ: "Chủ Nhật, 20 tháng 12, 2026". Để trống để tự định dạng từ dateISO. */
+  dateLabel: "",
+  /** Ví dụ: "Tức ngày 02 tháng 11 năm Bính Ngọ". */
+  lunarLabel: "",
+  /** Nơi tổ chức lễ, ví dụ: "Đà Nẵng". Bộ ảnh chụp tại Đà Nẵng, không suy ra địa điểm cưới. */
+  weddingPlace: "",
+  photo: {
+    title: "Simple Thing",
+    studio: "Kimchi Studio",
+    place: "Đà Nẵng",
+    year: "2024",
+  },
+  /** Khi đã có tên miền, ví dụ "https://hieuque.example.com". */
+  siteUrl: "",
+  contact: {
+    groomPhone: "",
+    bridePhone: "",
+  },
+  gift: {
+    enabled: false,
+    bank: "",
+    account: "",
+    owner: "",
+    note: "Niềm vui của chúng tôi là sự hiện diện của quý khách.",
+  },
+  events: [
+    {
+      id: "vu-quy",
+      eyebrow: "Nhà gái",
+      title: "Lễ vu quy",
+      time: "",
+      venue: "",
+      address: "",
+    },
+    {
+      id: "thanh-hon",
+      eyebrow: "Nhà trai",
+      title: "Lễ thành hôn",
+      time: "",
+      venue: "",
+      address: "",
+    },
+    {
+      id: "tiec",
+      eyebrow: "Chung vui",
+      title: "Tiệc cưới",
+      time: "",
+      venue: "",
+      address: "",
+    },
+  ] satisfies Ceremony[],
+  /**
+   * Lịch trong ngày. Thêm từng mốc khi đã chốt, ví dụ:
+   * { time: "08:30", title: "Đón khách", detail: "Tại tư gia nhà gái" }
+   */
+  timeline: [] as TimelineItem[],
+};
+
+export const heroPhoto = shot(
+  "13x185",
+  1800,
+  1200,
+  "Trần Trung Hiếu bế Tướng Thị Quế trong ánh hoàng hôn",
+);
+
+export const couplePhoto = shot(
+  "60x902",
+  1140,
+  1800,
+  "Chân dung cưới của Trần Trung Hiếu và Tướng Thị Quế",
+);
+
+export const quotePhoto = shot(
+  "le-dsc_7000",
+  1800,
+  1200,
+  "Hiếu và Quế nắm tay lúc trời chập choạng",
+);
+
+export const moments = [
+  {
+    index: "01",
+    title: "Studio trắng",
+    text: "Giữa phông nền trắng và một bó hoa nhỏ, hai người đứng cạnh nhau. Đơn giản, và đủ để nhớ.",
+    photo: shot("13x184", 1200, 1800, "Quế trong váy ren, Hiếu mặc vest đen giữa studio trắng"),
+  },
+  {
+    index: "02",
+    title: "Giữa vườn",
+    text: "Cỏ, nắng và một cái ôm. Những buổi chiều đẹp thường không cần nhiều hơn thế.",
+    photo: shot("13x182", 1800, 1200, "Hiếu và Quế cười cùng nhau trong khu vườn"),
+  },
+  {
+    index: "03",
+    title: "Khi trời đổ nắng",
+    text: "Họ vẫn nắm tay khi bầu trời chuyển màu. Phần còn lại của câu chuyện là những ngày sẽ tới.",
+    photo: shot("le-dsc_6684", 1140, 1800, "Hiếu và Quế dạo bước bên hồ lúc hoàng hôn"),
+  },
+];
+
+export const gallery: Photo[] = [
+  shot("le-dsc_6684", 1140, 1800, "Dạo bước bên hồ lúc hoàng hôn"),
+  shot("13x185", 1800, 1200, "Bế bổng giữa trời chiều"),
+  shot("13x183", 1200, 1800, "Khoảnh khắc dịu dàng trong studio"),
+  shot("le-qdd04660", 1800, 1200, "Bên chiếc xe cổ"),
+  shot("le-qdd05362", 1200, 1800, "Nụ cười trong váy cưới"),
+  shot("13x182", 1800, 1200, "Cười giữa khu vườn"),
+  shot("le-dsc_6842", 1200, 1800, "Nụ hôn bên bờ nước"),
+  shot("le-qdd04747", 1200, 1800, "Vẫy tay trên xe cổ"),
+  shot("le-dsc_7000", 1800, 1200, "Nhảy cùng nhau lúc chập choạng"),
+  shot("60x901", 1140, 1800, "Ảnh toàn thân với vest trắng"),
+  shot("13x181", 1800, 1200, "Đứng cạnh xe cổ trước nhà"),
+  shot("le-qdd04834", 1200, 1800, "Ngồi giữa vườn xanh"),
+  shot("le-dsc_6985", 1200, 1800, "Ánh mắt lúc mặt trời lặn"),
+  shot("13x184", 1200, 1800, "Váy ren và vest đen"),
+  shot("le-qdd04619", 1200, 1800, "Chụp cùng chiếc xe cổ"),
+  shot("le-qdd05022", 1200, 1800, "Vòng tay trong studio"),
+  shot("le-dsc_6634", 1140, 1800, "Cầm tay đi trên bãi cỏ"),
+  shot("le-qdd04686", 1200, 1800, "Ngồi trên xe với bó hoa loa kèn"),
+  shot("60x902", 1140, 1800, "Chân dung cưới vest trắng và váy đuôi cá"),
+];
+
+export const albumSpreads: Photo[] = [
+  shot("25x35_09", 1800, 1259, "Trang album áo dài"),
+  shot("25x35_02", 1800, 1259, "Trang album bên xe cổ"),
+  shot("25x35_01", 1800, 1259, "Trang album ngoại cảnh"),
+  shot("25x35_03", 1800, 1259, "Trang album trước ngôi nhà"),
+  shot("25x35_07", 1800, 1259, "Trang album trong vườn"),
+  shot("25x35_08", 1800, 1259, "Trang album trên ban công"),
+  shot("25x35_10", 1800, 1259, "Trang album hoàng hôn"),
+  shot("25x35_06", 1800, 1259, "Trang album chân dung"),
+  shot("25x35_04", 1800, 1259, "Trang album bộ ảnh studio"),
+  shot("25x35_05", 1800, 1259, "Trang album những khoảnh khắc"),
+];
+
+export function displayDate() {
+  if (wedding.dateLabel.trim()) return wedding.dateLabel.trim();
+  if (!wedding.dateISO.trim()) return "";
+  const date = new Date(wedding.dateISO);
+  if (Number.isNaN(date.getTime())) return "";
+  const formatted = new Intl.DateTimeFormat("vi-VN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "Asia/Ho_Chi_Minh",
+  }).format(date);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}
+
+export function mapsHref(address: string) {
+  const query = address.trim();
+  if (!query) return "";
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+export function zaloHref(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  if (!digits) return "";
+  const normalized = digits.startsWith("84")
+    ? digits
+    : digits.startsWith("0")
+      ? `84${digits.slice(1)}`
+      : digits;
+  return `https://zalo.me/${normalized}`;
+}
+
+export function weddingJsonLd() {
+  if (!wedding.dateISO.trim()) return null;
+  const place = wedding.weddingPlace.trim();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `Lễ thành hôn của ${wedding.groom.name} và ${wedding.bride.name}`,
+    startDate: wedding.dateISO,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    description: `Trân trọng kính mời đến lễ thành hôn của ${wedding.groom.name} và ${wedding.bride.name}.`,
+    ...(place
+      ? {
+          location: {
+            "@type": "Place",
+            name: place,
+            address: place,
+          },
+        }
+      : {}),
+  };
+}
