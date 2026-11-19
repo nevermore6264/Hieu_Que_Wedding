@@ -1,10 +1,8 @@
 import { Countdown } from "@/components/Countdown";
 import { Reveal } from "@/components/Reveal";
-import { displayDate, mapsHref, wedding } from "@/lib/wedding";
+import { mapsHref, wedding } from "@/lib/wedding";
 
 export function Events() {
-  const date = displayDate();
-
   return (
     <section id="lich-trinh" className="px-5 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">

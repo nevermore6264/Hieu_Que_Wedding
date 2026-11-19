@@ -12,11 +12,16 @@ export function MusicToggle() {
     if (!audio) return;
     const onPause = () => setPlaying(false);
     const onPlay = () => setPlaying(true);
+    const onOpen = () => {
+      audio.play().catch(() => setPlaying(false));
+    };
     audio.addEventListener("pause", onPause);
     audio.addEventListener("play", onPlay);
+    window.addEventListener("hieu-que-open", onOpen);
     return () => {
       audio.removeEventListener("pause", onPause);
       audio.removeEventListener("play", onPlay);
+      window.removeEventListener("hieu-que-open", onOpen);
     };
   }, []);
 

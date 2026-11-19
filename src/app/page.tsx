@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Gallery } from "@/components/Gallery";
 import { Gift } from "@/components/Gift";
 import { Hero } from "@/components/Hero";
+import { InvitationCover } from "@/components/InvitationCover";
 import { Invitation } from "@/components/Invitation";
 import { Moments } from "@/components/Moments";
 import { MusicToggle } from "@/components/MusicToggle";
@@ -22,6 +23,7 @@ export default function HomePage() {
       {jsonLd ? (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       ) : null}
+      <InvitationCover />
       <SiteMotion />
       <Nav />
       <MusicToggle />
