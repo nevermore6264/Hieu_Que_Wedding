@@ -31,7 +31,7 @@ export function Footer() {
         {copied ? "Đã sao chép liên kết thiệp" : "Sao chép liên kết thiệp"}
       </button>
       <p className="mt-10 text-xs leading-6 text-white/40">
-        Nhạc nền: {wedding.music.title} — {wedding.music.credit}. CC BY 4.0.
+        Nhạc nền: {wedding.music.title} — {wedding.music.credit}. Pixabay.
       </p>
       <p className="mt-6 text-xs text-white/35">Với tất cả yêu thương</p>
       </Reveal>

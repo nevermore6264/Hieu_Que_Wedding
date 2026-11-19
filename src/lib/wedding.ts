@@ -73,8 +73,8 @@ export const wedding = {
   },
   music: {
     src: "/music/wedding.mp3",
-    title: "Gymnopédie No. 1",
-    credit: "Erik Satie, trình bày Kevin MacLeod",
+    title: "Vietnam Romance",
+    credit: "VPRODMUSIC_Asia_BGM",
   },
   events: [
     {

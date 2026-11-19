@@ -47,17 +47,22 @@ export function MusicToggle() {
         onClick={toggle}
         aria-pressed={playing}
         aria-label={playing ? "Tắt nhạc nền" : "Mở nhạc nền"}
-        className={`fixed right-4 bottom-4 z-40 flex items-center gap-2 border border-gold/50 bg-ivory/95 px-3 py-2 text-ink shadow-[0_12px_30px_-18px_rgba(40,24,8,0.8)] backdrop-blur-md transition duration-300 ${playing ? "music-live" : ""}`}
+        title={wedding.music.title}
+        className={`music-orb ${playing ? "is-on" : ""}`}
       >
-        <span aria-hidden className="font-serif text-lg leading-none text-gold">
-          {playing ? "♫" : "♩"}
-        </span>
-        <span className="text-left">
-          <span className="block text-[10px] uppercase tracking-[0.22em]">
-            {playing ? "Đang phát" : "Nhạc"}
+        <span className="music-ripple" aria-hidden />
+        <span className="music-ripple music-ripple-late" aria-hidden />
+        {playing ? (
+          <span className="music-bars" aria-hidden>
+            <span />
+            <span />
+            <span />
           </span>
-          <span className="block max-w-36 truncate font-serif text-sm leading-tight">{wedding.music.title}</span>
-        </span>
+        ) : (
+          <span aria-hidden className="font-serif text-lg leading-none">
+            ♪
+          </span>
+        )}
       </button>
     </>
   );

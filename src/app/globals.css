@@ -127,8 +127,68 @@ body {
   animation: count-pop 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.music-live {
-  animation: pulse-ring 1.8s ease-out infinite;
+.music-orb {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 40;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 112, 68, 0.6);
+  background: rgba(250, 247, 242, 0.96);
+  color: #8f7044;
+  box-shadow: 0 12px 28px -16px rgba(40, 24, 8, 0.85);
+  animation: music-breathe 2.2s ease-in-out infinite;
+}
+
+.music-orb.is-on {
+  animation: none;
+  color: #1c1712;
+}
+
+.music-ripple {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1px solid rgba(143, 112, 68, 0.45);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.music-orb.is-on .music-ripple {
+  animation: music-ripple 1.25s ease-out infinite;
+}
+
+.music-orb.is-on .music-ripple-late {
+  animation-delay: 0.42s;
+}
+
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 15px;
+}
+
+.music-bars span {
+  display: block;
+  width: 3px;
+  height: 100%;
+  transform-origin: bottom;
+  border-radius: 999px;
+  background: currentColor;
+  animation: music-bar 0.5s ease-in-out infinite;
+}
+
+.music-bars span:nth-child(2) {
+  animation-delay: 0.14s;
+}
+
+.music-bars span:nth-child(3) {
+  animation-delay: 0.28s;
 }
 
 .menu-panel {
@@ -296,15 +356,34 @@ body {
   }
 }
 
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 rgba(143, 112, 68, 0.4);
+@keyframes music-breathe {
+  0%,
+  100% {
+    transform: scale(1);
   }
-  70% {
-    box-shadow: 0 0 0 12px rgba(143, 112, 68, 0);
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes music-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(143, 112, 68, 0);
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@keyframes music-bar {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
   }
 }
 
@@ -476,7 +555,9 @@ body {
   .scroll-cue span,
   .scene-wipe,
   .count-pop,
-  .music-live,
+  .music-orb,
+  .music-ripple,
+  .music-bars span,
   .menu-panel,
   .menu-link,
   .lightbox-backdrop,
