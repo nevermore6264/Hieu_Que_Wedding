@@ -37,7 +37,7 @@ export function Gift() {
             const ready = Boolean(side.qr.trim() || side.account.trim() || side.bank.trim() || side.owner.trim());
             return (
               <Reveal key={side.id} delay={index * 100}>
-                <article className="flex h-full flex-col items-center bg-paper px-6 py-8 text-center shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)]">
+                <article className="name-plaque flex h-full flex-col items-center px-6 py-8 text-center">
                   <p className="text-[11px] uppercase tracking-[0.32em] text-gold">{side.title}</p>
                   {side.owner.trim() ? (
                     <h3 className="mt-3 font-serif text-3xl font-medium">{side.owner}</h3>

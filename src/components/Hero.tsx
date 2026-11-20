@@ -16,7 +16,7 @@ export function Hero() {
       <span className="hero-corner is-tr" aria-hidden />
       <span className="hero-corner is-bl" aria-hidden />
       <div
-        className="hero-in relative z-10 mx-auto aspect-[3/4] h-[min(76svh,720px)] w-auto max-w-[92vw] overflow-hidden rounded-t-[240px] rounded-b-3xl shadow-[0_28px_50px_-30px_rgba(40,24,8,0.75)]"
+        className="moon-gate hero-in relative z-10 mx-auto aspect-[3/4] h-[min(76svh,720px)] w-auto max-w-[92vw]"
         style={{ animationDelay: "0.12s" }}
       >
         <Image
