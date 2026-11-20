@@ -19,7 +19,7 @@ export function InvitationCover() {
   const [opened, setOpened] = useState(false);
   const [opening, setOpening] = useState(false);
   const weddingDay = wedding.events.find((event) => event.id === "le-cuoi");
-  const welcome = wedding.events.find((event) => event.id === "dam-ngo");
+  const welcome = wedding.events.find((event) => event.id === "an-hoi");
 
   useEffect(() => {
     if (opened) return;

@@ -89,18 +89,18 @@ export const wedding = {
       {
         id: "nha-trai",
         title: "Nhà trai",
-        owner: "",
-        bank: "",
-        account: "",
-        qr: "",
+        owner: "Trần Trung Hiếu",
+        bank: "Techcombank",
+        account: "9026061997",
+        qr: "/qr/nha-trai.png",
       },
       {
         id: "nha-gai",
         title: "Nhà gái",
-        owner: "",
-        bank: "",
-        account: "",
-        qr: "",
+        owner: "Tướng Thị Quế",
+        bank: "Techcombank",
+        account: "2006200422",
+        qr: "/qr/nha-gai.png",
       },
     ] satisfies GiftSide[],
   },
@@ -108,7 +108,7 @@ export const wedding = {
     {
       id: "nha-trai",
       title: "Nhà trai",
-      address: "Phường Duy Tân, tỉnh Ninh Bình",
+      address: "Tổ dân phố Yên Đổ, phường Duy Tân, tỉnh Ninh Bình",
       map: "https://www.google.com/maps/search/?api=1&query=20.666764,106.020786",
     },
     {
@@ -152,9 +152,9 @@ export const wedding = {
   ],
   events: [
     {
-      id: "dam-ngo",
-      eyebrow: "Mở đầu",
-      title: "Lễ dạm ngõ",
+      id: "an-hoi",
+      eyebrow: "Lễ hỏi",
+      title: "Lễ ăn hỏi",
       time: "Thứ Ba, 24 tháng 11, 2026",
       venue: "",
       address: "",
@@ -301,7 +301,7 @@ export function weddingJsonLd() {
     endDate: "2026-12-26",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    description: `Trân trọng kính mời đến lễ dạm ngõ ngày 24 tháng 11 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
+    description: `Trân trọng kính mời đến lễ ăn hỏi ngày 24 tháng 11 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
     ...(place
       ? {
           location: {
