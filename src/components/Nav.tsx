@@ -14,12 +14,30 @@ const links = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const nodes = links
+      .map((link) => document.getElementById(link.href.slice(1)))
+      .filter((node): node is HTMLElement => Boolean(node));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setCurrent(visible.target.id);
+      },
+      { threshold: [0.2, 0.45], rootMargin: "-18% 0px -46% 0px" },
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -50,7 +68,9 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[11px] tracking-[0.22em] uppercase opacity-80 transition hover:opacity-100"
+              className={`nav-link text-[11px] tracking-[0.22em] uppercase opacity-80 transition hover:opacity-100 ${
+                current === link.href.slice(1) ? "is-current" : ""
+              }`}
             >
               {link.label}
             </a>
@@ -77,7 +97,7 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="menu-link font-serif text-4xl"
+              className={`menu-link font-serif text-4xl ${current === link.href.slice(1) ? "is-current" : ""}`}
               style={{ animationDelay: `${index * 70}ms` }}
               onClick={() => setOpen(false)}
             >

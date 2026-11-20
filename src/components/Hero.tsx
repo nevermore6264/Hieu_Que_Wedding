@@ -68,6 +68,9 @@ export function Hero() {
           ) : null}
         </div>
       </div>
+      <p className="scroll-cue" aria-hidden>
+        <span />
+      </p>
     </section>
   );
 }

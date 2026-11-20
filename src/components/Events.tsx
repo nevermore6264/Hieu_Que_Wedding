@@ -53,7 +53,7 @@ export function Events() {
           <div className="mt-12 flex justify-center">
             <a
               href="/lich"
-              className="inline-flex min-h-12 items-center justify-center border border-gold/50 px-8 text-[11px] tracking-[0.28em] uppercase transition hover:bg-ink hover:text-ivory"
+              className="press inline-flex min-h-12 items-center justify-center border border-gold/50 px-8 text-[11px] tracking-[0.28em] uppercase transition hover:bg-ink hover:text-ivory"
             >
               Thêm vào lịch
             </a>
