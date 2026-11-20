@@ -297,15 +297,27 @@ export function zaloHref(phone: string) {
 export function weddingJsonLd() {
   if (!wedding.dateISO.trim()) return null;
   const place = wedding.weddingPlace.trim();
+  const siteUrl = wedding.siteUrl.trim().replace(/\/$/, "");
   return {
     "@context": "https://schema.org",
     "@type": "Event",
     name: `Lễ cưới của ${wedding.groom.name} và ${wedding.bride.name}`,
+    description: `Trân trọng kính mời đến lễ ăn hỏi ngày 25 tháng 12 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
     startDate: wedding.dateISO,
-    endDate: "2026-12-26",
+    endDate: "2026-12-26T23:59:59+07:00",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    description: `Trân trọng kính mời đến lễ ăn hỏi ngày 25 tháng 12 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
+    inLanguage: "vi",
+    ...(siteUrl
+      ? {
+          url: siteUrl,
+          image: `${siteUrl}/photos/13x185.webp`,
+        }
+      : {}),
+    organizer: [
+      { "@type": "Person", name: wedding.groom.name },
+      { "@type": "Person", name: wedding.bride.name },
+    ],
     ...(place
       ? {
           location: {

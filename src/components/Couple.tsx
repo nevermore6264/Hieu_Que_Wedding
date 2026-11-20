@@ -3,7 +3,7 @@ import { Ornament } from "@/components/Ornament";
 
 export function Couple() {
   return (
-    <section id="doi-uyen-uong" className="bg-[#f6f1e8] px-6 py-16 text-center md:py-24">
+    <section id="doi-uyen-uong" className="paper-ground px-6 py-16 text-center md:py-24">
       <div className="mx-auto max-w-5xl">
       <p className="text-[11px] tracking-[0.38em] text-gold uppercase">Đôi uyên ương</p>
       <p className="mt-4 font-serif text-3xl leading-snug italic">Một chuyện tình giản dị.</p>

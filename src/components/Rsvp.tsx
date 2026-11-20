@@ -121,7 +121,7 @@ export function Rsvp() {
     "mt-2 w-full border-0 border-b border-gold/35 bg-transparent py-3 font-serif text-2xl outline-none focus:border-gold";
 
   return (
-    <section id="tham-du" className="bg-[#f6f1e8] pb-16">
+    <section id="tham-du" className="paper-ground pb-16">
       <Ribbon>Tham dự</Ribbon>
       <div className="mx-auto grid max-w-[1180px] gap-5 px-4 pt-8 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
         <aside className="relative overflow-hidden bg-night px-7 py-10 text-ivory md:px-10">

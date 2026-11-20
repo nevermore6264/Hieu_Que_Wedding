@@ -8,7 +8,7 @@ export function Ribbon({
   return (
     <h2
       id={id}
-      className="bg-night px-4 py-3.5 text-center text-[12px] font-medium tracking-[0.32em] text-ivory uppercase"
+      className="section-ribbon bg-night px-4 py-3.5 text-center text-[12px] font-medium tracking-[0.32em] text-ivory uppercase"
     >
       {children}
     </h2>

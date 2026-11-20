@@ -27,7 +27,7 @@ export function Gift() {
   };
 
   return (
-    <section id="mung-cuoi" className="bg-[#f6f1e8] pb-12">
+    <section id="mung-cuoi" className="paper-ground pb-12">
       <Ribbon>Mừng cưới</Ribbon>
       <div className="mx-auto max-w-4xl px-5">
         <p className="mx-auto mt-6 max-w-xl text-center text-[15px] leading-7 text-muted">{wedding.gift.note}</p>

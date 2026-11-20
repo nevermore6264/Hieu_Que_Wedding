@@ -4,7 +4,7 @@ import { Ribbon } from "@/components/Ribbon";
 
 export function Moments() {
   return (
-    <section id="khoanh-khac" className="bg-[#f6f1e8] pb-12">
+    <section id="khoanh-khac" className="paper-ground pb-12">
       <Ribbon>Khoảnh khắc</Ribbon>
       <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-10 md:grid-cols-3 md:gap-8">
         {moments.map((moment) => (

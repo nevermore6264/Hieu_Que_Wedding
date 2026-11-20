@@ -30,7 +30,7 @@ export function Hero() {
         />
       </div>
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
-        <span aria-hidden className="pointer-events-none absolute font-serif text-[clamp(10rem,22vw,18rem)] leading-none text-gold/15">
+        <span aria-hidden className="pointer-events-none absolute font-serif text-[clamp(10rem,22vw,18rem)] leading-none text-cinnabar/15">
           囍
         </span>
         <div className="relative w-full max-w-xl">

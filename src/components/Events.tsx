@@ -1,6 +1,7 @@
 import { Countdown } from "@/components/Countdown";
 import { HomeMaps } from "@/components/HomeMaps";
 import { Ribbon } from "@/components/Ribbon";
+import { weddingCalendar } from "@/lib/calendar";
 import { wedding, type Ceremony } from "@/lib/wedding";
 
 function Calendar({ event, featured }: { event: Ceremony; featured?: boolean }) {
@@ -35,7 +36,7 @@ export function Events() {
   const others = wedding.events.filter((event) => event.id !== "le-cuoi");
 
   return (
-    <section id="lich-trinh" className="bg-[#f6f1e8] pb-12">
+    <section id="lich-trinh" className="paper-ground pb-12">
       <Ribbon>Lịch trình</Ribbon>
       <div className="mx-auto max-w-5xl px-5 pt-10">
         <p className="text-center text-sm leading-7 text-muted">Giờ và địa điểm từng buổi sẽ được cập nhật.</p>
@@ -47,6 +48,17 @@ export function Events() {
           ))}
           {weddingDay ? <Calendar event={weddingDay} featured /> : null}
         </div>
+
+        {weddingCalendar() ? (
+          <div className="mt-12 flex justify-center">
+            <a
+              href="/lich"
+              className="inline-flex min-h-12 items-center justify-center border border-gold/50 px-8 text-[11px] tracking-[0.28em] uppercase transition hover:bg-ink hover:text-ivory"
+            >
+              Thêm vào lịch
+            </a>
+          </div>
+        ) : null}
 
         {wedding.dateISO.trim() ? (
           <div className="mt-10">

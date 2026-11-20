@@ -18,27 +18,29 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const title = `${wedding.groom.name} & ${wedding.bride.name}`;
+const title = `Thiệp mời lễ cưới của ${wedding.groom.name} & ${wedding.bride.name}`;
 const description = `Thiệp mời lễ cưới của ${wedding.groom.name} và ${wedding.bride.name}. Lễ ăn hỏi ngày 25 tháng 12 năm 2026, lễ cưới ngày 26 tháng 12 năm 2026.`;
+const siteUrl = wedding.siteUrl.trim().replace(/\/$/, "");
 
 export const metadata: Metadata = {
   title,
   description,
   applicationName: "Hiếu & Quế",
-  metadataBase: new URL(wedding.siteUrl || "http://localhost:3000"),
+  ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
+  alternates: siteUrl ? { canonical: "/" } : undefined,
+  robots: { index: true, follow: true },
   openGraph: {
     title,
     description,
     locale: "vi_VN",
     type: "website",
-    images: [
-      {
-        url: "/photos/13x185.webp",
-        width: 1800,
-        height: 1200,
-        alt: "Trần Trung Hiếu và Tướng Thị Quế",
-      },
-    ],
+    siteName: `${wedding.groom.shortName} & ${wedding.bride.shortName}`,
+    ...(siteUrl ? { url: siteUrl } : {}),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
   },
 };
 

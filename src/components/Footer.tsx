@@ -16,7 +16,7 @@ export function Footer() {
     <footer id="chan-trang" className="relative overflow-hidden bg-night text-ivory">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c6aa74] to-transparent" />
       <p
-        className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 font-serif text-[14rem] leading-none text-white/[0.045]"
+        className="pointer-events-none absolute top-6 left-1/2 -translate-x-1/2 font-serif text-[14rem] leading-none text-cinnabar/25"
         aria-hidden
       >
         囍

@@ -37,7 +37,7 @@ export function Gallery() {
   });
 
   return (
-    <section id="album" className="overflow-hidden bg-[#f6f1e8] pb-16">
+    <section id="album" className="paper-ground overflow-hidden pb-16">
       <Ribbon>Album ảnh</Ribbon>
       <div className="mx-auto max-w-[1440px] px-4 pt-8 md:px-8 lg:px-12">
         <div className="mx-auto mb-6 max-w-xl text-center">

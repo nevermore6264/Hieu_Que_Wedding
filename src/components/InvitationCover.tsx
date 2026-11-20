@@ -97,10 +97,10 @@ export function InvitationCover() {
         </span>
 
         <div className="relative z-10 text-center text-ivory">
-          <div className="cover-seal mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-gold-2/70 font-serif text-2xl text-gold-2">
+          <div className="cover-seal mx-auto flex h-14 w-14 items-center justify-center font-serif text-2xl">
             囍
           </div>
-          <p className="mt-8 font-serif text-[clamp(1.7rem,4vw,2.35rem)] leading-tight">
+          <p className="mt-6 font-serif text-[clamp(1.7rem,4vw,2.35rem)] leading-tight">
             {wedding.groom.name}
           </p>
           <p className="my-1 font-serif text-2xl text-gold-2 italic">&</p>
