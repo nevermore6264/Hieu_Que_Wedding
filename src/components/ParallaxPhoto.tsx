@@ -30,7 +30,7 @@ export function ParallaxPhoto({
       const rect = parent.getBoundingClientRect();
       const view = window.innerHeight || 1;
       const progress = (view - rect.top) / (view + rect.height);
-      const shift = (progress - 0.5) * 56;
+      const shift = (progress - 0.5) * 18;
       node.style.transform = `translate3d(0, ${shift.toFixed(2)}px, 0)`;
     };
     const onScroll = () => {

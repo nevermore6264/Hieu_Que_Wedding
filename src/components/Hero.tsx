@@ -9,10 +9,14 @@ export function Hero() {
   return (
     <section
       id="dau-trang"
-      className="grid min-h-[100svh] items-center gap-10 bg-[#f6f1e8] px-5 pt-24 pb-12 text-ink md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-8 md:px-10 lg:px-16"
+      className="hero-ground relative grid min-h-[100svh] items-center gap-10 px-5 pt-24 pb-12 text-ink md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-8 md:px-10 lg:px-16"
     >
+      <div className="hero-glow hero-glow-photo" aria-hidden />
+      <div className="hero-glow hero-glow-names" aria-hidden />
+      <span className="hero-corner is-tr" aria-hidden />
+      <span className="hero-corner is-bl" aria-hidden />
       <div
-        className="hero-in relative mx-auto aspect-[3/4] h-[min(76svh,720px)] w-auto max-w-[92vw] overflow-hidden rounded-t-[240px] rounded-b-3xl shadow-[0_28px_50px_-30px_rgba(40,24,8,0.75)]"
+        className="hero-in relative z-10 mx-auto aspect-[3/4] h-[min(76svh,720px)] w-auto max-w-[92vw] overflow-hidden rounded-t-[240px] rounded-b-3xl shadow-[0_28px_50px_-30px_rgba(40,24,8,0.75)]"
         style={{ animationDelay: "0.12s" }}
       >
         <Image
@@ -25,7 +29,7 @@ export function Hero() {
           className="h-full w-full object-cover object-[center_18%]"
         />
       </div>
-      <div className="relative flex flex-col items-center justify-center text-center">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center">
         <span aria-hidden className="pointer-events-none absolute font-serif text-[clamp(10rem,22vw,18rem)] leading-none text-gold/15">
           囍
         </span>

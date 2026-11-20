@@ -155,10 +155,10 @@ export const wedding = {
       id: "an-hoi",
       eyebrow: "Lễ hỏi",
       title: "Lễ ăn hỏi",
-      time: "Thứ Ba, 24 tháng 11, 2026",
+      time: "Thứ Sáu, 25 tháng 12, 2026",
       venue: "",
       address: "",
-      note: "Tức ngày 16 tháng 10 năm Bính Ngọ",
+      note: "Tức ngày 17 tháng 11 năm Bính Ngọ",
     },
     {
       id: "le-cuoi",
@@ -305,7 +305,7 @@ export function weddingJsonLd() {
     endDate: "2026-12-26",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    description: `Trân trọng kính mời đến lễ ăn hỏi ngày 24 tháng 11 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
+    description: `Trân trọng kính mời đến lễ ăn hỏi ngày 25 tháng 12 năm 2026 và lễ cưới ngày 26 tháng 12 năm 2026 của ${wedding.groom.name} và ${wedding.bride.name}.`,
     ...(place
       ? {
           location: {
