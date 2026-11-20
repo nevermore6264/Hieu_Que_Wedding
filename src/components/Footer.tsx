@@ -14,7 +14,7 @@ export function Footer() {
           {wedding.bride.name}
         </p>
         <p className="mt-10 text-xs leading-6 text-white/40">
-          Nhạc nền: {wedding.music.title} — {wedding.music.credit}. Pixabay.
+          Nhạc cưới Việt Nam, phát từ YouTube.
         </p>
         <p className="mt-6 text-xs text-white/35">Với tất cả yêu thương</p>
       </Reveal>

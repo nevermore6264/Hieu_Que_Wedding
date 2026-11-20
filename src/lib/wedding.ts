@@ -118,11 +118,38 @@ export const wedding = {
       map: "https://www.google.com/maps/place/C%C3%B4ng+N%C3%B4ng+V%E1%BA%ADn+T%E1%BA%A3i+qu%E1%BA%BF+khe+%C4%90%E1%BA%A3ng/@21.8749533,105.1138581,17.68z/data=!4m6!3m5!1s0x3134ab0031115367:0xe701d111b7fd7291!8m2!3d21.874652!4d105.114103!16s%2Fg%2F11x_2y_m9f",
     },
   ] satisfies Household[],
-  music: {
-    src: "/music/wedding.mp3",
-    title: "Vietnam Romance",
-    credit: "VPRODMUSIC_Asia_BGM",
-  },
+  playlist: [
+    {
+      id: "ngay-dau-tien",
+      title: "Ngày đầu tiên",
+      artist: "Đức Phúc",
+      youtube: "rIXhXaQ8tiM",
+    },
+    {
+      id: "hon-ca-yeu",
+      title: "Hơn cả yêu",
+      artist: "Đức Phúc",
+      youtube: "__kGJZ-kPno",
+    },
+    {
+      id: "co-chang-trai",
+      title: "Có chàng trai viết lên cây",
+      artist: "Phan Mạnh Quỳnh",
+      youtube: "EUEUZDV-in0",
+    },
+    {
+      id: "nam-lay-tay-anh",
+      title: "Nắm lấy tay anh",
+      artist: "Tuấn Hưng",
+      youtube: "p8A3ULXgV3E",
+    },
+    {
+      id: "dam-cuoi-tren-duong-que",
+      title: "Đám cưới trên đường quê",
+      artist: "Mạnh Đình, Hà Phương",
+      youtube: "m58GuttEXJE",
+    },
+  ],
   events: [
     {
       id: "dam-ngo",
