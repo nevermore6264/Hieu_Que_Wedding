@@ -21,7 +21,7 @@ declare global {
           videoId?: string;
           playerVars?: Record<string, string | number>;
           events?: {
-            onReady?: () => void;
+            onReady?: (event: { target: YTPlayer }) => void;
             onStateChange?: (event: { data: number }) => void;
             onError?: () => void;
           };
@@ -43,6 +43,7 @@ declare global {
 export function MusicToggle() {
   const hostRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
+  const readyRef = useRef(false);
   const userPaused = useRef(false);
   const wantPlay = useRef(false);
   const indexRef = useRef(0);
@@ -58,7 +59,7 @@ export function MusicToggle() {
     const isLive = () => {
       const player = playerRef.current;
       const state = window.YT?.PlayerState;
-      if (!player || !state) return false;
+      if (!player || typeof player.getPlayerState !== "function" || !state) return false;
       try {
         const current = player.getPlayerState();
         return current === state.PLAYING || current === state.BUFFERING;
@@ -69,8 +70,12 @@ export function MusicToggle() {
 
     const playCurrent = () => {
       const player = playerRef.current;
-      if (!player || userPaused.current || isLive()) return;
-      player.playVideo();
+      if (!readyRef.current || !player || typeof player.playVideo !== "function" || userPaused.current || isLive()) return;
+      try {
+        player.playVideo();
+      } catch {
+        setPlaying(false);
+      }
     };
 
     const advance = (fromError = false) => {
@@ -80,7 +85,13 @@ export function MusicToggle() {
       const next = (indexRef.current + 1) % wedding.playlist.length;
       indexRef.current = next;
       setIndex(next);
-      playerRef.current?.loadVideoById(wedding.playlist[next].youtube);
+      const player = playerRef.current;
+      if (!player || typeof player.loadVideoById !== "function") return;
+      try {
+        player.loadVideoById(wedding.playlist[next].youtube);
+      } catch {
+        setPlaying(false);
+      }
     };
 
     const mount = () => {
@@ -99,10 +110,17 @@ export function MusicToggle() {
           origin: window.location.origin,
         },
         events: {
-          onReady: () => {
-            if (!wantPlay.current || userPaused.current) return;
-            if (indexRef.current === 0) playerRef.current?.playVideo();
-            else playerRef.current?.loadVideoById(wedding.playlist[indexRef.current].youtube);
+          onReady: (event) => {
+            const player = event.target;
+            playerRef.current = player;
+            readyRef.current = typeof player.playVideo === "function";
+            if (!readyRef.current || !wantPlay.current || userPaused.current) return;
+            try {
+              if (indexRef.current === 0) player.playVideo();
+              else player.loadVideoById(wedding.playlist[indexRef.current].youtube);
+            } catch {
+              setPlaying(false);
+            }
           },
           onStateChange: (event) => {
             const state = window.YT?.PlayerState;
@@ -165,24 +183,40 @@ export function MusicToggle() {
     indexRef.current = next;
     setIndex(next);
     setOpen(true);
-    playerRef.current?.loadVideoById(wedding.playlist[next].youtube);
+    const player = playerRef.current;
+    if (readyRef.current && player && typeof player.loadVideoById === "function") {
+      try {
+        player.loadVideoById(wedding.playlist[next].youtube);
+      } catch {
+        setPlaying(false);
+      }
+    }
   };
 
   const onOrb = () => {
     const player = playerRef.current;
+    const controllable = !!player && typeof player.playVideo === "function" && typeof player.getPlayerState === "function";
     const state = window.YT?.PlayerState;
     let current = -1;
-    try {
-      current = player?.getPlayerState() ?? -1;
-    } catch {
-      current = -1;
+    if (controllable && player) {
+      try {
+        current = player.getPlayerState();
+      } catch {
+        current = -1;
+      }
     }
     const isPlaying = state ? current === state.PLAYING || current === state.BUFFERING : playing;
     if (!isPlaying) {
       userPaused.current = false;
       wantPlay.current = true;
       setOpen(true);
-      if (player) player.playVideo();
+      if (readyRef.current && player && typeof player.playVideo === "function") {
+        try {
+          player.playVideo();
+        } catch {
+          setPlaying(false);
+        }
+      }
       return;
     }
     if (!open) {
@@ -191,7 +225,13 @@ export function MusicToggle() {
     }
     userPaused.current = true;
     wantPlay.current = false;
-    player?.pauseVideo();
+    if (player && typeof player.pauseVideo === "function") {
+      try {
+        player.pauseVideo();
+      } catch {
+        /* The player can be mid-load. The paused flag still sticks. */
+      }
+    }
     setPlaying(false);
     setOpen(false);
   };
@@ -214,7 +254,14 @@ export function MusicToggle() {
                   if (current && playing) {
                     userPaused.current = true;
                     wantPlay.current = false;
-                    playerRef.current?.pauseVideo();
+                    const player = playerRef.current;
+                    if (player && typeof player.pauseVideo === "function") {
+                      try {
+                        player.pauseVideo();
+                      } catch {
+                        /* Ignore a player that is still loading. */
+                      }
+                    }
                     setPlaying(false);
                     return;
                   }
