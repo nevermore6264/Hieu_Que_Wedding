@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { Ornament } from "@/components/Ornament";
 import { Ribbon } from "@/components/Ribbon";
 import { wedding, zaloHref } from "@/lib/wedding";
 
@@ -115,170 +116,222 @@ export function Rsvp() {
 
   const groomZalo = zaloHref(wedding.contact.groomPhone);
   const brideZalo = zaloHref(wedding.contact.bridePhone);
+  const wishes = entries.filter((entry) => entry.message);
+  const fieldClass =
+    "mt-2 w-full border-0 border-b border-gold/35 bg-transparent py-3 font-serif text-2xl outline-none focus:border-gold";
 
   return (
-    <section id="tham-du" className="bg-[#f6f1e8] pb-14">
+    <section id="tham-du" className="bg-[#f6f1e8] pb-16">
       <Ribbon>Tham dự</Ribbon>
-      <div className="mx-auto grid max-w-5xl gap-10 px-5 pt-8 md:grid-cols-2 md:items-start">
-        <div>
-          <h2 className="font-serif text-3xl leading-tight font-medium">
-            Cho chúng tôi biết quý khách sẽ đến
-          </h2>
-          <p className="mt-3 text-[15px] leading-7 text-muted">
-            Lời xác nhận được lưu trên trình duyệt này. Hãy sao chép và gửi qua Zalo để hai gia đình nhận được.
+      <div className="mx-auto grid max-w-[1180px] gap-5 px-4 pt-8 md:px-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
+        <aside className="relative overflow-hidden bg-night px-7 py-10 text-ivory md:px-10">
+          <div className="pointer-events-none absolute inset-3 border border-white/10" aria-hidden />
+          <p className="pointer-events-none absolute -top-8 right-1 font-serif text-[9rem] leading-none text-white/[0.07]" aria-hidden>
+            囍
           </p>
-          {(groomZalo || brideZalo) && (
-            <div className="mt-6 flex flex-wrap gap-3">
-              {groomZalo ? (
-                <a href={groomZalo} className="text-[11px] uppercase tracking-[0.18em] text-gold" target="_blank" rel="noreferrer">
-                  Zalo chú rể
-                </a>
-              ) : null}
-              {brideZalo ? (
-                <a href={brideZalo} className="text-[11px] uppercase tracking-[0.18em] text-gold" target="_blank" rel="noreferrer">
-                  Zalo cô dâu
-                </a>
-              ) : null}
-            </div>
-          )}
-        </div>
+          <div className="relative">
+            <p className="text-[11px] tracking-[0.38em] text-gold-2 uppercase">Lời hồi đáp</p>
+            <h2 className="mt-3 font-serif text-4xl leading-[1.05] font-medium md:text-5xl">
+              Cho chúng tôi biết quý khách sẽ đến
+            </h2>
+            <p className="mt-4 font-serif text-3xl">
+              {wedding.groom.shortName} <span className="text-gold-2 italic">&</span> {wedding.bride.shortName}
+            </p>
+            <Ornament className="mt-6" align="start" />
+            <p className="mt-5 max-w-sm text-sm leading-7 text-white/70">
+              Lời xác nhận được lưu trên trình duyệt này. Hãy sao chép và gửi qua Zalo để hai gia đình nhận được.
+            </p>
+            {(groomZalo || brideZalo) && (
+              <div className="mt-5 flex flex-wrap gap-4">
+                {groomZalo ? (
+                  <a href={groomZalo} className="text-[11px] tracking-[0.18em] text-gold-2 uppercase" target="_blank" rel="noreferrer">
+                    Zalo chú rể
+                  </a>
+                ) : null}
+                {brideZalo ? (
+                  <a href={brideZalo} className="text-[11px] tracking-[0.18em] text-gold-2 uppercase" target="_blank" rel="noreferrer">
+                    Zalo cô dâu
+                  </a>
+                ) : null}
+              </div>
+            )}
+          </div>
+          <div className="relative mt-8 grid gap-3 sm:grid-cols-2">
+            {wedding.events.map((item) => {
+              const parts = item.time.match(/^(.*?),\s*(\d+)\s+tháng\s+(\d+),\s*(\d+)/i);
+              return (
+                <div key={item.id} className="border border-white/15 px-4 py-4">
+                  <p className="text-[11px] tracking-[0.28em] text-gold-2 uppercase">{item.eyebrow}</p>
+                  {parts ? (
+                    <p className="mt-2 flex items-end gap-3">
+                      <span className="font-serif text-5xl leading-none">{parts[2]}</span>
+                      <span className="pb-1 text-sm text-white/70">
+                        tháng {parts[3]}
+                        <span className="mt-0.5 block text-white/45">{parts[1]}</span>
+                      </span>
+                    </p>
+                  ) : (
+                    <p className="mt-2 font-serif text-2xl">{item.title}</p>
+                  )}
+                  {item.note ? <p className="mt-2 text-sm text-white/55 italic">{item.note}</p> : null}
+                </div>
+              );
+            })}
+          </div>
+        </aside>
 
-        <form onSubmit={onSubmit} className="border border-line bg-paper px-5 py-7 md:mt-0" noValidate>
-          <label className="block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-name">
-            Họ và tên
-          </label>
-          <input
-            id="rsvp-name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            className="mt-2 w-full border-0 border-b border-ink/20 bg-transparent py-3 outline-none focus:border-gold"
-            autoComplete="name"
-          />
-
-          <label className="mt-6 block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-phone">
-            Số điện thoại
-          </label>
-          <input
-            id="rsvp-phone"
-            value={phone}
-            onChange={(event) => setPhone(event.target.value)}
-            className="mt-2 w-full border-0 border-b border-ink/20 bg-transparent py-3 outline-none focus:border-gold"
-            inputMode="tel"
-            autoComplete="tel"
-          />
-
-          <fieldset className="mt-7">
-            <legend className="text-[11px] uppercase tracking-[0.2em] text-muted">Quý khách</legend>
-            <div className="mt-3 grid gap-2">
-              {(
-                [
-                  ["yes", "Sẽ đến chung vui"],
-                  ["later", "Sẽ trả lời sau"],
-                  ["no", "Rất tiếc, chưa sắp xếp được"],
-                ] as const
-              ).map(([value, label]) => (
-                <label key={value} className="flex cursor-pointer items-center gap-3 text-sm">
-                  <input
-                    type="radio"
-                    name="attendance"
-                    checked={attendance === value}
-                    onChange={() => setAttendance(value)}
-                    className="accent-[#8f7044]"
-                  />
-                  {label}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-
-          {attendance === "yes" ? (
-            <label className="mt-6 block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-guests">
-              Số người đến
-              <select
-                id="rsvp-guests"
-                value={guests}
-                onChange={(event) => setGuests(Number(event.target.value))}
-                className="mt-2 block w-full border-0 border-b border-ink/20 bg-transparent py-3 outline-none"
-              >
-                {[1, 2, 3, 4, 5, 6].map((count) => (
-                  <option key={count} value={count}>
-                    {count}
-                  </option>
-                ))}
-              </select>
+        <form onSubmit={onSubmit} className="border border-gold/40 bg-paper p-2" noValidate>
+          <div className="border border-gold/20 px-5 py-7 md:px-7">
+            <label className="block text-[11px] tracking-[0.28em] text-gold uppercase" htmlFor="rsvp-name">
+              Họ và tên
             </label>
-          ) : null}
+            <input id="rsvp-name" value={name} onChange={(event) => setName(event.target.value)} className={fieldClass} autoComplete="name" />
 
-          <fieldset className="mt-7">
-            <legend className="text-[11px] uppercase tracking-[0.2em] text-muted">Buổi lễ dự kiến tham dự</legend>
-            <div className="mt-3 grid gap-2">
-              {wedding.events.map((item) => (
-                <label key={item.id} className="flex cursor-pointer items-center gap-3 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={events.includes(item.id)}
-                    onChange={() => toggleEvent(item.id)}
-                    className="accent-[#8f7044]"
-                  />
-                  {item.time || item.title}
-                  <span className="text-muted">· {item.title}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+            <label className="mt-7 block text-[11px] tracking-[0.28em] text-gold uppercase" htmlFor="rsvp-phone">
+              Số điện thoại
+            </label>
+            <input
+              id="rsvp-phone"
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
+              className={fieldClass}
+              inputMode="tel"
+              autoComplete="tel"
+            />
 
-          <label className="mt-7 block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-message">
-            Lời chúc
-          </label>
-          <textarea
-            id="rsvp-message"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-            rows={4}
-            className="mt-2 w-full resize-y border border-ink/15 bg-ivory/60 px-3 py-3 outline-none focus:border-gold"
-          />
+            <fieldset className="mt-8">
+              <legend className="text-[11px] tracking-[0.28em] text-gold uppercase">Quý khách</legend>
+              <div className="mt-3 grid gap-2">
+                {(
+                  [
+                    ["yes", "Sẽ đến chung vui"],
+                    ["later", "Sẽ trả lời sau"],
+                    ["no", "Rất tiếc, chưa sắp xếp được"],
+                  ] as const
+                ).map(([value, label]) => {
+                  const selected = attendance === value;
+                  return (
+                    <label
+                      key={value}
+                      className={`flex cursor-pointer items-center justify-between gap-3 border px-4 py-3 transition ${
+                        selected ? "border-gold bg-[#f8f1e4]" : "border-line hover:border-gold/50"
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="attendance"
+                        checked={selected}
+                        onChange={() => setAttendance(value)}
+                        className="sr-only"
+                      />
+                      <span className="font-serif text-xl">{label}</span>
+                      <span className={`h-2.5 w-2.5 rotate-45 ${selected ? "bg-gold" : "border border-gold/40"}`} aria-hidden />
+                    </label>
+                  );
+                })}
+              </div>
+            </fieldset>
 
-          {error ? <p className="mt-4 text-sm text-[#8a3d32]">{error}</p> : null}
+            {attendance === "yes" ? (
+              <fieldset className="mt-7">
+                <legend className="text-[11px] tracking-[0.28em] text-gold uppercase">Số người đến</legend>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[1, 2, 3, 4, 5, 6].map((count) => {
+                    const selected = guests === count;
+                    return (
+                      <label
+                        key={count}
+                        className={`grid h-11 w-11 cursor-pointer place-items-center border font-serif text-xl transition ${
+                          selected ? "border-gold bg-ink text-ivory" : "border-line text-ink hover:border-gold/50"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="guests"
+                          checked={selected}
+                          onChange={() => setGuests(count)}
+                          className="sr-only"
+                        />
+                        {count}
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            ) : null}
 
-          <button
-            type="submit"
-            className="mt-7 inline-flex min-h-11 items-center bg-ink px-6 text-[11px] uppercase tracking-[0.22em] text-ivory"
-          >
-            Gửi lời xác nhận
-          </button>
+            <fieldset className="mt-8">
+              <legend className="text-[11px] tracking-[0.28em] text-gold uppercase">Buổi lễ dự kiến tham dự</legend>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                {wedding.events.map((item) => {
+                  const selected = events.includes(item.id);
+                  return (
+                    <label
+                      key={item.id}
+                      className={`cursor-pointer border px-4 py-4 transition ${
+                        selected ? "border-gold bg-[#f8f1e4]" : "border-line hover:border-gold/50"
+                      }`}
+                    >
+                      <input type="checkbox" checked={selected} onChange={() => toggleEvent(item.id)} className="sr-only" />
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="text-[11px] tracking-[0.22em] text-gold uppercase">{item.eyebrow}</span>
+                        <span className={`h-2.5 w-2.5 rotate-45 ${selected ? "bg-gold" : "border border-gold/40"}`} aria-hidden />
+                      </span>
+                      <span className="mt-2 block font-serif text-2xl">{item.title}</span>
+                      <span className="mt-1 block text-sm text-muted">{item.time}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </fieldset>
 
-          {latest ? (
-            <div className="mt-8 border border-gold/30 bg-ivory px-4 py-4 text-sm leading-7">
-              <p className="font-medium">Cảm ơn {latest.name}.</p>
-              <p className="mt-1 text-muted">
-                {attendanceLabel[latest.attendance]}
-                {latest.attendance === "yes" ? ` · ${latest.guests} người` : ""}
-                {latest.message ? ` · “${latest.message}”` : ""}
-              </p>
-              <button
-                type="button"
-                onClick={copyLatest}
-                className="mt-3 text-[11px] uppercase tracking-[0.18em] text-gold"
-              >
-                {copied ? "Đã sao chép nội dung" : "Sao chép để gửi qua Zalo"}
-              </button>
-            </div>
-          ) : null}
+            <label className="mt-8 block text-[11px] tracking-[0.28em] text-gold uppercase" htmlFor="rsvp-message">
+              Lời chúc
+            </label>
+            <textarea
+              id="rsvp-message"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              rows={4}
+              className="mt-3 w-full resize-y border border-gold/25 bg-ivory/70 px-4 py-3 font-serif text-xl outline-none focus:border-gold"
+            />
+
+            {error ? <p className="mt-4 text-sm text-[#8a3d32]">{error}</p> : null}
+
+            <button
+              type="submit"
+              className="mt-7 inline-flex min-h-12 w-full items-center justify-center bg-ink text-[11px] tracking-[0.28em] text-ivory uppercase transition hover:bg-gold"
+            >
+              Gửi lời xác nhận
+            </button>
+
+            {latest ? (
+              <div className="mt-6 border border-gold/35 bg-[#f8f1e4] px-4 py-4 text-sm leading-7">
+                <p className="font-serif text-2xl">Cảm ơn {latest.name}.</p>
+                <p className="mt-1 text-muted">
+                  {attendanceLabel[latest.attendance]}
+                  {latest.attendance === "yes" ? ` · ${latest.guests} người` : ""}
+                  {latest.message ? ` · “${latest.message}”` : ""}
+                </p>
+                <button type="button" onClick={copyLatest} className="mt-3 text-[11px] tracking-[0.18em] text-gold uppercase">
+                  {copied ? "Đã sao chép nội dung" : "Sao chép để gửi qua Zalo"}
+                </button>
+              </div>
+            ) : null}
+          </div>
         </form>
       </div>
 
-      {ready && entries.some((entry) => entry.message) ? (
-        <div className="mt-10 px-5">
-          <h3 className="font-serif text-3xl">Lời chúc trên máy này</h3>
-          <div className="mt-5 grid gap-4">
-            {entries
-              .filter((entry) => entry.message)
-              .map((entry) => (
-                <blockquote key={entry.id} className="bg-paper px-5 py-5">
-                  <p className="text-[15px] leading-7">“{entry.message}”</p>
-                  <footer className="mt-3 text-xs tracking-[0.16em] text-muted uppercase">{entry.name}</footer>
-                </blockquote>
-              ))}
+      {ready && wishes.length > 0 ? (
+        <div className="mx-auto mt-12 max-w-[1180px] px-4 md:px-8">
+          <p className="text-center text-[11px] tracking-[0.38em] text-gold uppercase">Lời chúc trên máy này</p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {wishes.map((entry) => (
+              <blockquote key={entry.id} className="border border-line bg-paper px-6 py-6">
+                <p className="font-serif text-2xl leading-snug">“{entry.message}”</p>
+                <footer className="mt-4 text-[11px] tracking-[0.22em] text-gold uppercase">{entry.name}</footer>
+              </blockquote>
+            ))}
           </div>
         </div>
       ) : null}

@@ -83,14 +83,14 @@ body {
 .album-shot {
   display: block;
   width: 100%;
-  height: min(68vh, 620px);
+  height: auto;
+  aspect-ratio: 3 / 4;
   border-radius: 1.15rem;
   object-fit: cover;
   animation: fade-in 0.45s ease both;
 }
 
 .album-slot.is-side .album-shot {
-  height: min(54vh, 500px);
   border-radius: 1.4rem;
 }
 
@@ -130,13 +130,15 @@ body {
 
 .album-index {
   position: absolute;
-  right: 0.8rem;
+  right: 0.75rem;
   bottom: 0.7rem;
+  padding: 0.05rem 0.55rem 0.12rem;
+  border-radius: 999px;
+  background: rgba(20, 17, 14, 0.38);
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   letter-spacing: 0.08em;
   color: #faf7f2;
-  text-shadow: 0 8px 18px rgba(20, 17, 14, 0.45);
 }
 
 .album-thumb {
