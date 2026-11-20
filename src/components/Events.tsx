@@ -1,6 +1,7 @@
 import { Countdown } from "@/components/Countdown";
+import { HomeMaps } from "@/components/HomeMaps";
 import { Ribbon } from "@/components/Ribbon";
-import { mapsHref, wedding, type Ceremony } from "@/lib/wedding";
+import { wedding, type Ceremony } from "@/lib/wedding";
 
 function Calendar({ event, featured }: { event: Ceremony; featured?: boolean }) {
   const match = event.time.match(/^(.+?),\s*(\d+)\s+tháng\s+(\d+),\s*(\d+)\s*$/i);
@@ -54,31 +55,7 @@ export function Events() {
           </div>
         ) : null}
 
-        <div className="mt-12 grid grid-cols-2 gap-3 border-t border-gold/30 pt-8">
-          {wedding.homes.map((home) => {
-            const map = mapsHref(home.address, home.map);
-            return (
-              <article key={home.id} className="px-1 text-center">
-                <p className="text-[11px] tracking-[0.28em] text-gold uppercase">{home.title}</p>
-                {home.address ? (
-                  <p className="mt-3 text-sm leading-6">{home.address}</p>
-                ) : (
-                  <p className="mt-3 text-sm leading-6 text-muted italic">Địa chỉ sẽ được cập nhật</p>
-                )}
-                {map ? (
-                  <a
-                    href={map}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-4 inline-block text-[11px] tracking-[0.18em] text-gold uppercase"
-                  >
-                    Xem bản đồ
-                  </a>
-                ) : null}
-              </article>
-            );
-          })}
-        </div>
+        <HomeMaps />
 
         {wedding.timeline.length > 0 ? (
           <ol className="mt-12 border-l border-gold/40">

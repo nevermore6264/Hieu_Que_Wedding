@@ -100,7 +100,7 @@ export const wedding = {
         owner: "Tướng Thị Quế",
         bank: "Techcombank",
         account: "2006200422",
-        qr: "/qr/nha-gai.png",
+        qr: "/qr/nha-gai.png?v=2",
       },
     ] satisfies GiftSide[],
   },
@@ -271,12 +271,16 @@ export function displayDate() {
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
-export function mapsHref(address: string, map = "") {
+/** Bản đồ nhúng ngay trên thiệp, không mở sang trang Google Maps. */
+export function mapsEmbed(address: string, map = "") {
   const direct = map.trim();
-  if (direct) return direct;
-  const query = address.trim();
+  const pin = direct.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/);
+  const queryParam = direct.match(/[?&]query=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+  const at = direct.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+  const pair = pin || queryParam || at;
+  const query = pair ? `${pair[1]},${pair[2]}` : address.trim();
   if (!query) return "";
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=16&hl=vi&output=embed`;
 }
 
 export function zaloHref(phone: string) {

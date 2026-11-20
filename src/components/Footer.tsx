@@ -13,10 +13,7 @@ export function Footer() {
           <span className="mx-2 text-gold-2">·</span>
           {wedding.bride.name}
         </p>
-        <p className="mt-10 text-xs leading-6 text-white/40">
-          Nhạc cưới Việt Nam, phát từ YouTube.
-        </p>
-        <p className="mt-6 text-xs text-white/35">Với tất cả yêu thương</p>
+        <p className="mt-10 text-xs text-white/35">Với tất cả yêu thương</p>
       </Reveal>
     </footer>
   );
