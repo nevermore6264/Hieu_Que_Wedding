@@ -18,19 +18,19 @@ export function Photobook() {
   };
 
   return (
-    <section id="trang-album" className="bg-night py-20 text-ivory md:py-28" aria-labelledby="photobook-title">
+    <section id="trang-album" className="bg-night py-12 text-ivory" aria-labelledby="photobook-title">
       <Reveal>
-      <div className="mx-auto flex max-w-6xl items-end justify-between gap-6 px-5">
+      <div className="mx-auto flex items-end justify-between gap-4 px-5">
         <div>
           <p className="text-[11px] uppercase tracking-[0.38em] text-gold-2">Album in</p>
-          <h2 id="photobook-title" className="mt-3 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-tight font-medium">
+          <h2 id="photobook-title" className="mt-2 font-serif text-4xl leading-tight font-medium">
             Lật từng trang
           </h2>
-          <p className="mt-3 max-w-md text-sm leading-7 text-white/65">
-            Vuốt ngang để xem từng trang, hoặc dùng mũi tên.
+          <p className="mt-2 max-w-xs text-sm leading-6 text-white/65">
+            Vuốt ngang để xem từng trang.
           </p>
         </div>
-        <div className="hidden gap-2 sm:flex">
+        <div className="flex gap-2">
           <button
             type="button"
             className="h-11 w-11 border border-white/30 text-xl transition duration-300 hover:bg-white/10"
@@ -60,7 +60,7 @@ export function Photobook() {
             key={photo.src}
             type="button"
             aria-label={photo.alt}
-            className="album-card w-[86vw] shrink-0 snap-center cursor-pointer border-0 bg-transparent p-0 text-left sm:w-[640px]"
+            className="album-card w-[min(88vw,920px)] shrink-0 snap-center cursor-pointer overflow-hidden rounded-xl border-0 bg-transparent p-0 text-left"
             onClick={() => setIndex(photoIndex)}
           >
             <Image

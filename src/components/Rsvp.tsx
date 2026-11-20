@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { Reveal } from "@/components/Reveal";
+import { Ribbon } from "@/components/Ribbon";
 import { wedding, zaloHref } from "@/lib/wedding";
 
 type Attendance = "yes" | "no" | "later";
@@ -117,14 +117,14 @@ export function Rsvp() {
   const brideZalo = zaloHref(wedding.contact.bridePhone);
 
   return (
-    <section id="tham-du" className="px-5 py-24 md:py-32">
-      <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
-        <Reveal variant="left">
-          <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Tham dự</p>
-          <h2 className="mt-3 font-serif text-[clamp(2.3rem,5vw,3.8rem)] leading-tight font-medium">
+    <section id="tham-du" className="bg-[#f6f1e8] pb-14">
+      <Ribbon>Tham dự</Ribbon>
+      <div className="mx-auto grid max-w-5xl gap-10 px-5 pt-8 md:grid-cols-2 md:items-start">
+        <div>
+          <h2 className="font-serif text-3xl leading-tight font-medium">
             Cho chúng tôi biết quý khách sẽ đến
           </h2>
-          <p className="mt-4 text-[15px] leading-8 text-muted">
+          <p className="mt-3 text-[15px] leading-7 text-muted">
             Lời xác nhận được lưu trên trình duyệt này. Hãy sao chép và gửi qua Zalo để hai gia đình nhận được.
           </p>
           {(groomZalo || brideZalo) && (
@@ -141,10 +141,9 @@ export function Rsvp() {
               ) : null}
             </div>
           )}
-        </Reveal>
+        </div>
 
-        <Reveal variant="right" delay={120}>
-        <form onSubmit={onSubmit} className="border border-line bg-paper px-6 py-8 sm:px-8" noValidate>
+        <form onSubmit={onSubmit} className="border border-line bg-paper px-5 py-7 md:mt-0" noValidate>
           <label className="block text-[11px] uppercase tracking-[0.2em] text-muted" htmlFor="rsvp-name">
             Họ và tên
           </label>
@@ -266,13 +265,12 @@ export function Rsvp() {
             </div>
           ) : null}
         </form>
-        </Reveal>
       </div>
 
       {ready && entries.some((entry) => entry.message) ? (
-        <div className="mx-auto mt-16 max-w-6xl">
+        <div className="mt-10 px-5">
           <h3 className="font-serif text-3xl">Lời chúc trên máy này</h3>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid gap-4">
             {entries
               .filter((entry) => entry.message)
               .map((entry) => (

@@ -1,69 +1,48 @@
-import { ParallaxPhoto } from "@/components/ParallaxPhoto";
-import { displayDate, heroPhoto, wedding } from "@/lib/wedding";
+import Image from "next/image";
+import { couplePhoto, wedding } from "@/lib/wedding";
 
 export function Hero() {
-  const date = displayDate();
-  const place = wedding.weddingPlace.trim();
+  const weddingDay = wedding.events.find((event) => event.id === "le-cuoi");
 
   return (
-    <section id="dau-trang" className="relative flex min-h-[100svh] items-end overflow-hidden bg-night text-white">
-      <ParallaxPhoto
-        src={heroPhoto.src}
-        alt={heroPhoto.alt}
-        priority
-        className="hero-drift object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/40" />
-
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 pt-28 pb-36 md:pb-40">
-        <p className="hero-in text-[11px] uppercase tracking-[0.42em] text-gold-2" style={{ animationDelay: "0.15s" }}>
+    <section
+      id="dau-trang"
+      className="grid min-h-[100svh] items-center gap-8 bg-[#f6f1e8] px-5 pt-24 pb-12 text-ink md:grid-cols-2 md:gap-12 md:px-12 lg:px-20"
+    >
+      <div
+        className="hero-in relative mx-auto aspect-[3/4] h-[min(78svh,740px)] w-auto max-w-[92vw] overflow-hidden rounded-t-[240px] rounded-b-3xl shadow-[0_28px_50px_-30px_rgba(40,24,8,0.75)]"
+        style={{ animationDelay: "0.12s" }}
+      >
+        <Image
+          src={couplePhoto.src}
+          alt={couplePhoto.alt}
+          width={couplePhoto.width}
+          height={couplePhoto.height}
+          priority
+          sizes="(max-width: 768px) 90vw, 560px"
+          className="h-full w-full object-cover object-[center_18%]"
+        />
+      </div>
+      <div className="text-center md:text-left">
+        <p className="hero-in text-[11px] tracking-[0.42em] text-gold uppercase" style={{ animationDelay: "0.2s" }}>
           Thiệp mời lễ cưới
         </p>
-        <h1 className="mt-4 max-w-4xl font-serif font-medium leading-[0.98]">
-          <span className="hero-in block text-[clamp(2.7rem,6.4vw,5.5rem)]" style={{ animationDelay: "0.32s" }}>
-            {wedding.groom.name}
-          </span>
-          <span
-            className="hero-in my-1 block font-serif text-[clamp(1.8rem,3.5vw,2.8rem)] leading-none text-gold-2 italic"
-            style={{ animationDelay: "0.5s" }}
-          >
-            &
-          </span>
-          <span className="hero-in block text-[clamp(2.7rem,6.4vw,5.5rem)]" style={{ animationDelay: "0.64s" }}>
-            {wedding.bride.name}
-          </span>
+        <h1 className="hero-in mt-4 font-serif text-[clamp(3.4rem,7vw,6.5rem)] leading-none font-medium" style={{ animationDelay: "0.32s" }}>
+          <span className="block">{wedding.groom.shortName}</span>
+          <span className="my-2 block font-serif text-[clamp(2rem,4vw,3.2rem)] leading-none text-gold italic">&</span>
+          <span className="block">{wedding.bride.shortName}</span>
         </h1>
-        <div className="hero-in mt-6 max-w-md space-y-3 text-sm leading-7 text-white/80 md:text-base" style={{ animationDelay: "0.84s" }}>
-          {wedding.events.map((event) => (
-            <p key={event.id}>
-              <span className="text-gold-2">{event.title}</span>
-              {" · "}
-              {event.time}
-              {event.note ? <span className="block text-white/65">{event.note}</span> : null}
-            </p>
-          ))}
-          {place ? <p>{place}</p> : null}
-          {!wedding.events.length && !date ? <p>Ngày lành sẽ được cập nhật</p> : null}
-        </div>
-        <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "1.02s" }}>
-          <a
-            href="#album"
-            className="inline-flex min-h-11 items-center border border-white/50 px-5 text-[11px] uppercase tracking-[0.22em] transition duration-300 hover:bg-white hover:text-ink"
-          >
-            Xem album
-          </a>
-          <a
-            href="#tham-du"
-            className="inline-flex min-h-11 items-center bg-gold px-5 text-[11px] uppercase tracking-[0.22em] text-ivory transition duration-300 hover:bg-[#755832]"
-          >
-            Xác nhận tham dự
-          </a>
-        </div>
+        <p className="hero-in mt-5 text-base leading-7 text-muted" style={{ animationDelay: "0.5s" }}>
+          {wedding.groom.name}
+          <br />
+          {wedding.bride.name}
+        </p>
+        {weddingDay ? (
+          <p className="hero-in mt-5 text-sm tracking-wide text-ink" style={{ animationDelay: "0.66s" }}>
+            {weddingDay.time}
+          </p>
+        ) : null}
       </div>
-      <a href="#loi-moi" className="scroll-cue">
-        Cuộn
-        <span />
-      </a>
     </section>
   );
 }

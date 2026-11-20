@@ -1,111 +1,90 @@
 import { Countdown } from "@/components/Countdown";
-import { Reveal } from "@/components/Reveal";
-import { mapsHref, wedding } from "@/lib/wedding";
+import { Ribbon } from "@/components/Ribbon";
+import { mapsHref, wedding, type Ceremony } from "@/lib/wedding";
+
+function Calendar({ event, featured }: { event: Ceremony; featured?: boolean }) {
+  const match = event.time.match(/^(.+?),\s*(\d+)\s+tháng\s+(\d+),\s*(\d+)\s*$/i);
+  const place = event.venue || event.address;
+
+  return (
+    <article className="text-center">
+      <p className="text-[11px] tracking-[0.32em] text-gold uppercase">{event.title}</p>
+      {match ? (
+        <>
+          <div className="mt-4 flex items-center justify-center gap-4">
+            <span className="text-[11px] tracking-[0.14em] whitespace-nowrap uppercase">{match[1]}</span>
+            <span className="h-12 w-px bg-gold/40" />
+            <span className={`font-serif leading-none ${featured ? "text-6xl" : "text-5xl"}`}>{match[2]}</span>
+            <span className="h-12 w-px bg-gold/40" />
+            <span className="text-[11px] tracking-[0.14em] whitespace-nowrap uppercase">Tháng {match[3]}</span>
+          </div>
+          <p className="mt-3 text-sm tracking-[0.28em]">{match[4]}</p>
+        </>
+      ) : (
+        <p className="mt-3 text-sm">{event.time}</p>
+      )}
+      {event.note ? <p className="mt-1 text-sm text-muted italic">{event.note}</p> : null}
+      <p className="mt-2 text-sm text-muted italic">{place || "Địa điểm sẽ được cập nhật"}</p>
+    </article>
+  );
+}
 
 export function Events() {
+  const weddingDay = wedding.events.find((event) => event.id === "le-cuoi");
+  const others = wedding.events.filter((event) => event.id !== "le-cuoi");
+
   return (
-    <section id="lich-trinh" className="px-5 py-24 md:py-32">
-      <div className="mx-auto max-w-6xl">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Lịch trình</p>
-            <h2 className="mt-3 font-serif text-[clamp(2.3rem,5vw,3.8rem)] leading-tight font-medium">
-              Dạm ngõ và lễ cưới
-            </h2>
-            <p className="mt-4 text-[15px] leading-7 text-muted">
-              Giờ và địa điểm từng buổi sẽ được cập nhật.
-            </p>
-            {wedding.weddingPlace.trim() ? <p className="mt-2">{wedding.weddingPlace.trim()}</p> : null}
-          </div>
-        </Reveal>
+    <section id="lich-trinh" className="bg-[#f6f1e8] pb-12">
+      <Ribbon>Lịch trình</Ribbon>
+      <div className="mx-auto max-w-5xl px-5 pt-10">
+        <p className="text-center text-sm leading-7 text-muted">Giờ và địa điểm từng buổi sẽ được cập nhật.</p>
+        {wedding.weddingPlace.trim() ? <p className="mt-2 text-center text-sm">{wedding.weddingPlace.trim()}</p> : null}
+
+        <div className="mt-10 grid gap-12 md:grid-cols-2 md:items-start">
+          {others.map((event) => (
+            <Calendar key={event.id} event={event} />
+          ))}
+          {weddingDay ? <Calendar event={weddingDay} featured /> : null}
+        </div>
 
         {wedding.dateISO.trim() ? (
-          <div className="mx-auto mt-12 max-w-xl">
-            <p className="mb-4 text-center text-[11px] uppercase tracking-[0.28em] text-gold">Đến lễ cưới</p>
+          <div className="mt-10">
+            <p className="mb-4 text-center text-[11px] tracking-[0.28em] text-gold uppercase">Đến lễ cưới</p>
             <Countdown />
           </div>
         ) : null}
 
-        <div
-          className={`mx-auto mt-14 grid max-w-4xl gap-5 ${
-            wedding.events.length > 2 ? "md:grid-cols-3" : "md:grid-cols-2"
-          }`}
-        >
-          {wedding.events.map((event, index) => {
-            const filled = Boolean(event.time || event.venue || event.address);
-            const map = mapsHref(event.address || event.venue, "");
-            return (
-              <Reveal key={event.id} delay={index * 90}>
-                <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)] transition duration-500 hover:-translate-y-1">
-                  <div className="flex items-start justify-between gap-4">
-                    <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{event.eyebrow}</p>
-                    <span className="font-serif text-4xl leading-none text-gold/25">0{index + 1}</span>
-                  </div>
-                  <h3 className="mt-4 font-serif text-3xl font-medium">{event.title}</h3>
-                  <div className="mt-6 flex-1 text-sm leading-7 text-muted">
-                    {filled ? (
-                      <>
-                        {event.time ? <p className="text-ink">{event.time}</p> : null}
-                        {event.note ? <p className="italic">{event.note}</p> : null}
-                        {event.venue ? <p>{event.venue}</p> : null}
-                        {event.address ? <p>{event.address}</p> : null}
-                        {!event.venue && !event.address ? (
-                          <p className="italic">Địa điểm sẽ được cập nhật</p>
-                        ) : null}
-                      </>
-                    ) : (
-                      <p className="italic">Thông tin sẽ được cập nhật</p>
-                    )}
-                  </div>
-                  {map ? (
-                    <a
-                      href={map}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-6 text-[11px] uppercase tracking-[0.2em] text-gold"
-                    >
-                      Xem bản đồ
-                    </a>
-                  ) : null}
-                </article>
-              </Reveal>
-            );
-          })}
-        </div>
-
-        <div className="mx-auto mt-5 grid max-w-4xl gap-5 md:grid-cols-2">
-          {wedding.homes.map((home, index) => {
+        <div className="mt-12 grid grid-cols-2 gap-3 border-t border-gold/30 pt-8">
+          {wedding.homes.map((home) => {
             const map = mapsHref(home.address, home.map);
             return (
-              <Reveal key={home.id} delay={index * 90}>
-                <article className="flex h-full flex-col bg-paper px-7 py-8 shadow-[0_22px_50px_-38px_rgba(40,24,8,0.55)]">
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-gold">{home.title}</p>
-                  {home.address ? (
-                    <p className="mt-4 text-sm leading-7 text-ink">{home.address}</p>
-                  ) : (
-                    <p className="mt-4 text-sm leading-7 text-muted italic">Địa chỉ sẽ được cập nhật</p>
-                  )}
-                  {map ? (
-                    <a
-                      href={map}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-6 text-[11px] uppercase tracking-[0.2em] text-gold"
-                    >
-                      Xem bản đồ
-                    </a>
-                  ) : null}
-                </article>
-              </Reveal>
+              <article key={home.id} className="px-1 text-center">
+                <p className="text-[11px] tracking-[0.28em] text-gold uppercase">{home.title}</p>
+                {home.address ? (
+                  <p className="mt-3 text-sm leading-6">{home.address}</p>
+                ) : (
+                  <p className="mt-3 text-sm leading-6 text-muted italic">Địa chỉ sẽ được cập nhật</p>
+                )}
+                {map ? (
+                  <a
+                    href={map}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-block text-[11px] tracking-[0.18em] text-gold uppercase"
+                  >
+                    Xem bản đồ
+                  </a>
+                ) : null}
+              </article>
             );
           })}
         </div>
 
         {wedding.timeline.length > 0 ? (
-          <ol className="mx-auto mt-16 max-w-xl border-l border-gold/40">
+          <ol className="mt-12 border-l border-gold/40">
             {wedding.timeline.map((item) => (
-              <li key={`${item.time}-${item.title}`} className="relative pb-10 pl-8 last:pb-0">
-                <span className="absolute top-1.5 -left-[5px] h-2.5 w-2.5 rounded-full bg-gold ring-4 ring-ivory" />
+              <li key={`${item.time}-${item.title}`} className="relative pb-8 pl-8 last:pb-0">
+                <span className="absolute top-1.5 -left-[5px] h-2.5 w-2.5 rounded-full bg-gold ring-4 ring-[#f6f1e8]" />
                 <p className="text-xs tracking-[0.2em] text-gold">{item.time}</p>
                 <h3 className="mt-1 font-serif text-2xl">{item.title}</h3>
                 {item.detail ? <p className="mt-1 text-sm leading-6 text-muted">{item.detail}</p> : null}

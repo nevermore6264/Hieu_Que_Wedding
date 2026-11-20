@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { Ribbon } from "@/components/Ribbon";
 import { wedding, type GiftSide } from "@/lib/wedding";
 
 export function Gift() {
@@ -26,19 +27,12 @@ export function Gift() {
   };
 
   return (
-    <section id="mung-cuoi" className="px-5 py-24 md:py-32">
-      <div className="mx-auto max-w-4xl">
-        <Reveal>
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-[11px] uppercase tracking-[0.38em] text-gold">Mừng cưới</p>
-            <h2 className="mt-3 font-serif text-[clamp(2.3rem,5vw,3.8rem)] leading-tight font-medium">
-              Gửi trao yêu thương
-            </h2>
-            <p className="mt-4 text-[15px] leading-7 text-muted">{wedding.gift.note}</p>
-          </div>
-        </Reveal>
+    <section id="mung-cuoi" className="bg-[#f6f1e8] pb-12">
+      <Ribbon>Mừng cưới</Ribbon>
+      <div className="mx-auto max-w-4xl px-5">
+        <p className="mx-auto mt-6 max-w-xl text-center text-[15px] leading-7 text-muted">{wedding.gift.note}</p>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
           {wedding.gift.sides.map((side, index) => {
             const ready = Boolean(side.qr.trim() || side.account.trim() || side.bank.trim() || side.owner.trim());
             return (

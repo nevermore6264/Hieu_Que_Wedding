@@ -27,19 +27,21 @@ export default function HomePage() {
       <SiteMotion />
       <Nav />
       <MusicToggle />
-      <main>
-        <Hero />
-        <Invitation />
-        <Couple />
-        <Moments />
-        <Events />
-        <Gallery />
-        <Photobook />
-        <QuoteBand />
-        <Gift />
-        <Rsvp />
-      </main>
-      <Footer />
+      <div className="invite">
+        <main>
+          <Hero />
+          <Invitation />
+          <Couple />
+          <Moments />
+          <Events />
+          <Gallery />
+          <Photobook />
+          <QuoteBand />
+          <Gift />
+          <Rsvp />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

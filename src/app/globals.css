@@ -18,10 +18,51 @@ html {
   color-scheme: light;
 }
 
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
 body {
-  background: var(--color-ivory);
+  background: #f6f1e8;
   color: var(--color-ink);
   font-family: var(--font-sans);
+}
+
+.invite {
+  width: 100%;
+  min-height: 100svh;
+  background: #f6f1e8;
+}
+
+.fan-stage {
+  height: min(78vh, 760px);
+}
+
+.fan-card {
+  width: min(72vw, 520px);
+}
+
+.fan-card.is-center {
+  z-index: 2;
+  transform: translateX(-50%) scale(1);
+}
+
+.fan-card.is-next {
+  transform: translateX(calc(-50% + 20vw)) scale(0.9);
+}
+
+.fan-card.is-prev {
+  transform: translateX(calc(-50% - 20vw)) scale(0.9);
+}
+
+@media (min-width: 800px) {
+  .fan-card.is-next {
+    transform: translateX(calc(-50% + 26vw)) scale(0.9);
+  }
+
+  .fan-card.is-prev {
+    transform: translateX(calc(-50% - 26vw)) scale(0.9);
+  }
 }
 
 ::selection {
@@ -129,7 +170,7 @@ body {
 
 .music-orb {
   position: fixed;
-  right: 1rem;
+  right: 1.25rem;
   bottom: 1rem;
   z-index: 40;
   display: grid;
@@ -205,6 +246,10 @@ body {
 
 .lightbox-frame {
   animation: unfold 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.fan-card {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .album-card {
@@ -563,6 +608,7 @@ body {
   .lightbox-backdrop,
   .lightbox-frame,
   .album-card,
+  .fan-card,
   .ornament-line,
   .cover-mark,
   .cover-card,
