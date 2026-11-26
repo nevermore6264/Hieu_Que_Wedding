@@ -491,7 +491,7 @@ a[href^="#"]:hover {
   opacity: 1;
 }
 
-:where(button, .press, label.cursor-pointer):not(.music-orb):not(.album-slot):not(.album-thumb) {
+:where(button, .press, label.cursor-pointer):not(.music-orb):not(.album-slot):not(.album-thumb):not(.gift-open) {
   transition:
     transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 0.28s ease,
@@ -501,11 +501,11 @@ a[href^="#"]:hover {
     opacity 0.28s ease;
 }
 
-:where(button, .press, label.cursor-pointer):not(.music-orb):not(.album-slot):not(.album-thumb):not(.cover-open):hover {
+:where(button, .press, label.cursor-pointer):not(.music-orb):not(.album-slot):not(.album-thumb):not(.cover-open):not(.gift-open):hover {
   transform: translateY(-2px);
 }
 
-:where(button, .press, label.cursor-pointer, a[href^="#"]):not(.music-orb):not(.album-slot):active {
+:where(button, .press, label.cursor-pointer, a[href^="#"]):not(.music-orb):not(.album-slot):not(.gift-open):active {
   transform: translateY(0) scale(0.97);
 }
 
@@ -1153,6 +1153,180 @@ html:has(.cover) body {
   }
 }
 
+.gift-open {
+  display: flex;
+  width: min(100%, 26rem);
+  margin: 2.4rem auto 0;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.gift-open:hover .gift-art,
+.gift-open:focus-visible .gift-art {
+  translate: 0 -8px;
+}
+
+.gift-open:focus-visible {
+  outline: 2px solid #b08950;
+  outline-offset: 6px;
+}
+
+.gift-art {
+  width: min(21rem, 86vw);
+  height: auto;
+  overflow: visible;
+  transition: translate 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.gift-float {
+  animation: gift-float 5.2s ease-in-out infinite;
+}
+
+.gift-spark {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gift-twinkle 2.6s ease-in-out infinite;
+}
+
+.gift-hint {
+  margin-top: 0.15rem;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+}
+
+.gift-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(20, 17, 14, 0.55);
+}
+
+.gift-panel {
+  width: min(44rem, 100%);
+  max-height: min(40rem, calc(100svh - 2.5rem));
+  overflow: auto;
+  border-radius: 1.15rem;
+  background: #faf7f2;
+  box-shadow: 0 28px 70px -32px rgba(20, 17, 14, 0.7);
+  animation: gift-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gift-panel-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #8e2f2b;
+  padding: 1rem 3.2rem;
+  color: #f3eee6;
+  text-align: center;
+}
+
+.gift-panel-head h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.gift-close {
+  position: absolute;
+  top: 50%;
+  right: 0.85rem;
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: #f3eee6;
+  font-size: 1.6rem;
+  line-height: 1;
+  translate: 0 -50%;
+}
+
+.gift-sides {
+  display: grid;
+  gap: 1.75rem;
+  padding: 1.6rem 1.4rem 1.8rem;
+}
+
+.gift-side {
+  text-align: center;
+}
+
+.gift-side h4 {
+  color: #5c5148;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.gift-qr {
+  margin: 0.9rem auto 0;
+  width: fit-content;
+  border-radius: 1rem;
+  background: white;
+  padding: 0.7rem;
+  box-shadow: 0 10px 24px -18px rgba(40, 24, 8, 0.8);
+}
+
+.gift-qr img {
+  width: min(11.5rem, 62vw);
+  height: min(11.5rem, 62vw);
+  object-fit: contain;
+}
+
+.gift-save {
+  display: flex;
+  width: fit-content;
+  margin: 0.7rem auto 0;
+  align-items: center;
+  gap: 0.35rem;
+  color: #8e2f2b;
+  font-size: 0.82rem;
+}
+
+@keyframes gift-float {
+  50% {
+    translate: 0 -8px;
+  }
+}
+
+@keyframes gift-twinkle {
+  50% {
+    opacity: 0.2;
+    scale: 0.65;
+  }
+}
+
+@keyframes gift-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (min-width: 700px) {
+  .gift-sides {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    padding: 1.8rem 1.6rem 2rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1207,5 +1381,11 @@ html:has(.cover) body {
   .cover.is-opening .cover-card {
     animation: none !important;
     opacity: 0 !important;
+  }
+
+  .gift-float,
+  .gift-spark,
+  .gift-panel {
+    animation: none !important;
   }
 }

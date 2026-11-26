@@ -84,7 +84,7 @@ export const wedding = {
   },
   gift: {
     enabled: true,
-    note: "Niềm vui của chúng tôi là sự hiện diện của quý khách. Nếu muốn gửi quà, quý khách có thể quét mã bên dưới.",
+    note: "Sự hiện diện của quý khách là niềm vui của gia đình chúng tôi.",
     sides: [
       {
         id: "nha-trai",
@@ -120,34 +120,12 @@ export const wedding = {
   ] satisfies Household[],
   playlist: [
     {
-      id: "ngay-dau-tien",
-      title: "Ngày đầu tiên",
-      artist: "Đức Phúc",
-      youtube: "rIXhXaQ8tiM",
-    },
-    {
       id: "hon-ca-yeu",
       title: "Hơn cả yêu",
       artist: "Đức Phúc",
       youtube: "__kGJZ-kPno",
-    },
-    {
-      id: "co-chang-trai",
-      title: "Có chàng trai viết lên cây",
-      artist: "Phan Mạnh Quỳnh",
-      youtube: "EUEUZDV-in0",
-    },
-    {
-      id: "nam-lay-tay-anh",
-      title: "Nắm lấy tay anh",
-      artist: "Tuấn Hưng",
-      youtube: "p8A3ULXgV3E",
-    },
-    {
-      id: "dam-cuoi-tren-duong-que",
-      title: "Đám cưới trên đường quê",
-      artist: "Mạnh Đình, Hà Phương",
-      youtube: "m58GuttEXJE",
+      start: 60,
+      end: 104,
     },
   ],
   events: [

@@ -3,12 +3,26 @@
 import { useEffect, useRef, useState } from "react";
 import { wedding } from "@/lib/wedding";
 
+type YTClip = {
+  videoId: string;
+  startSeconds: number;
+  endSeconds: number;
+};
+
 type YTPlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
-  loadVideoById: (id: string) => void;
+  loadVideoById: (clip: YTClip) => void;
   getPlayerState: () => number;
 };
+
+function youtubeClip(song: (typeof wedding.playlist)[number]): YTClip {
+  return {
+    videoId: song.youtube,
+    startSeconds: song.start,
+    endSeconds: song.end,
+  };
+}
 
 declare global {
   interface Window {
@@ -78,17 +92,19 @@ export function MusicToggle() {
       }
     };
 
-    const advance = (fromError = false) => {
+    const replay = (fromError = false) => {
       if (fromError) skips += 1;
       else skips = 0;
-      if (skips > wedding.playlist.length || userPaused.current) return;
-      const next = (indexRef.current + 1) % wedding.playlist.length;
-      indexRef.current = next;
-      setIndex(next);
+      if (fromError && skips > 1) {
+        setPlaying(false);
+        return;
+      }
+      if (userPaused.current) return;
       const player = playerRef.current;
-      if (!player || typeof player.loadVideoById !== "function") return;
+      const song = wedding.playlist[indexRef.current];
+      if (!player || !song || typeof player.loadVideoById !== "function") return;
       try {
-        player.loadVideoById(wedding.playlist[next].youtube);
+        player.loadVideoById(youtubeClip(song));
       } catch {
         setPlaying(false);
       }
@@ -107,6 +123,8 @@ export function MusicToggle() {
           fs: 0,
           rel: 0,
           playsinline: 1,
+          start: wedding.playlist[0].start,
+          end: wedding.playlist[0].end,
           origin: window.location.origin,
         },
         events: {
@@ -116,8 +134,8 @@ export function MusicToggle() {
             readyRef.current = typeof player.playVideo === "function";
             if (!readyRef.current || !wantPlay.current || userPaused.current) return;
             try {
-              if (indexRef.current === 0) player.playVideo();
-              else player.loadVideoById(wedding.playlist[indexRef.current].youtube);
+              const song = wedding.playlist[indexRef.current];
+              if (song) player.loadVideoById(youtubeClip(song));
             } catch {
               setPlaying(false);
             }
@@ -130,9 +148,9 @@ export function MusicToggle() {
               setPlaying(true);
             }
             if (event.data === state.PAUSED) setPlaying(false);
-            if (event.data === state.ENDED) advance(false);
+            if (event.data === state.ENDED) replay(false);
           },
-          onError: () => advance(true),
+          onError: () => replay(true),
         },
       });
     };
@@ -186,7 +204,7 @@ export function MusicToggle() {
     const player = playerRef.current;
     if (readyRef.current && player && typeof player.loadVideoById === "function") {
       try {
-        player.loadVideoById(wedding.playlist[next].youtube);
+        player.loadVideoById(youtubeClip(wedding.playlist[next]));
       } catch {
         setPlaying(false);
       }
